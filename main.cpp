@@ -1,23 +1,59 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
-class playerBoard{
-    private:
-    char line1;
-    std::vector<char> line2, line3, line4, line5;
+//for processing file input
+class Args{   
+public:
+  std::string operation;
 
-    public:
-    //creating char/vectors for the players wall
-    playerBoard(){
-        std::vector<char> line2Input(2, '.'); std::vector<char> line3Input(3, '.'); std::vector<char> line4Input(4, '.'); std::vector<char> line5Input(5, '.');
-        line1 = '.';
-        line2 = line2Input;
-        line3 = line3Input;
-        line4 = line4Input;
-        line5 = line5Input;
-    }
 };
+
+void printMenu();
+void showCredits();
+void azulGame();
+
+
+int main(int argc, char** argv){
+    int userInput = 0 ;
+        std::cout << 
+    "Welcome to Azul! \n" <<
+    "-------------------\n \n"; 
+
+    while (userInput != 4 ){
+        printMenu();
+
+        std::cin >> userInput;
+
+        if (userInput == 1) {
+            azulGame();
+
+        } else if (userInput == 2) {
+            //load/save implement
+
+        } else if (userInput == 3) {
+            showCredits();
+
+        } else if (userInput == 4) {
+            std::cout<<"Thanks for playing"<<std::endl;
+
+        } else {
+            std::cout<<"Invalid Input"<<std::endl;
+            userInput = 0;
+        }
+    }
+    return EXIT_SUCCESS;
+}
+
+
+void printMenu(){
+    std::cout << 
+    "Menu \n" <<
+    "---- \n" <<
+    "1. New Game \n" <<
+    "2. Load Game \n" <<
+    "3. Credits (Show student information) \n" <<
+    "4. Quit \n \n";
+}
 
 void azulGame(){
     std::string playerName1, playerName2;
@@ -32,8 +68,8 @@ void showCredits(){
     std::cout << 
     "---------------------------------- \n" <<
     "Name: Cass Ilangantileke \n" <<
-    "Student ID: \n" <<
-    "Email: \n";
+    "Student ID: s3742928\n" <<
+    "Email: S3742928@student.rmit.edu.au\n";
 
     std::cout << 
     "\nName: Julian Tjiong \n" <<
@@ -45,30 +81,4 @@ void showCredits(){
     "Student ID: S3506698   \n" <<
     "Email: S3506698@student.rmit.edu.au\n" <<
     "----------------------------------\n\n";
-}
-
-int main(){
-    int userInput{ 0 };
-    do{
-        std::cout << 
-        "Welcome to Azul! \n" <<
-        "-------------------\n \n" <<
-        "Menu \n" <<
-        "---- \n" <<
-        "1. New Game \n" <<
-        "2. Load Game \n" <<
-        "3. Credits (Show student information) \n" <<
-        "4. Quit \n \n";
-
-        std::cin >> userInput;
-        
-        switch(userInput){
-            case 1: azulGame(); userInput = 0; break;
-            case 2: break; userInput = 0;
-            case 3: showCredits(); userInput = 0; break;
-            case 4: return 0; 
-            default: break;
-        }
-
-    }while(true);
 }
