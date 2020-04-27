@@ -73,8 +73,8 @@ void showCredits(){
 
     std::cout << 
     "\nName: Julian Tjiong \n" <<
-    "Student ID: \n" <<
-    "Email: \n";
+    "Student ID: S3786866 \n" <<
+    "Email: S3786866@student.rmit.edu.au \n";
 
     std::cout << 
     "\nName: Matthew Andric \n" <<
