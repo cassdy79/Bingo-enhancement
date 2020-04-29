@@ -14,8 +14,7 @@ class PlayerBoard{
 
 
   private:
-    char line1;
-    std::vector<char> line2, line3, line4, line5;
+    std::vector<std::vector<char>> factoryLines;
       
 };
 
