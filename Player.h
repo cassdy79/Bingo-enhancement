@@ -5,19 +5,17 @@
 
 class Player{
     public:
-    Player();
-    ~Player();
-
-    int getScore();
-
-    void setScore();
-
-    std::string getName();
+        Player(std::string playerName);
+        ~Player();
+        int getScore();
+        void setScore(int score);
+        PlayerBoard* getPlayerBoard();
+        std::string getName();
 
     private:
-    PlayerBoard playerBoard;
-    int playerScore;
-    std::string playerName;
+        PlayerBoard* playerBoard;
+        int playerScore;
+        std::string playerName;
 };
 
 #endif // PLAYER_H
