@@ -1,8 +1,12 @@
 #include "GameBoard.h"
 
 GameBoard::GameBoard(){
-    this->factory0={"", "", ""};
-
+    factory0[3] = {};
+    factory1[4] = {};
+    factory2[4] = {};
+    factory3[4] = {};
+    factory4[4] = {};
+    factory5[4] = {};
 }
 
 GameBoard::~GameBoard(){
