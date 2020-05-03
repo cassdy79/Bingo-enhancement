@@ -22,6 +22,12 @@ class PlayerBoard{
     //overloaded function for when pulling from discard tiles as opposed to factory offers
     void insertIntoLine(int factoryLineNumber, std::list<char>* boxLid, std::list<char>* discardTiles);
 
+    //function to print current status of player board
+    void printMosaic();
+
+    //helps print a line of the wall for the mosaic
+    void printWall(int x);
+
   private:
     std::vector<std::vector<char>> factoryLines;
     char factoryWall[5][5];

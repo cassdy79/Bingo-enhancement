@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "PlayerBoard.h"
 
 //for processing file input
 class Args{   
@@ -36,7 +37,18 @@ int main(int argc, char** argv){
         } else if (userInput == 4) {
             std::cout<<"Thanks for playing"<<std::endl;
 
-        } else {
+        } 
+        
+        //test input for playerboard testing
+        else if (userInput == 23) {
+            PlayerBoard* board = new PlayerBoard();
+            board->printMosaic();
+            
+
+        }
+
+        
+        else {
             std::cout<<"Invalid Input"<<std::endl;
             userInput = 0;
         }
