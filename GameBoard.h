@@ -2,6 +2,7 @@
 #define GAMEBOARD_H
 
 #include <list>
+#include <string>
 
 class GameBoard{
     public:
@@ -12,7 +13,7 @@ class GameBoard{
     char* retrieveFactory(int factoryNumber);
 
     //adds tiles into factory offers from tileBag
-    void insertIntoFactory();
+    void insertIntoFactory(int factoryNumber, char tile1, char tile2, char tile3, char tile4);
 
     //randomises tile order in tileBag
     void generateTileOrder();
