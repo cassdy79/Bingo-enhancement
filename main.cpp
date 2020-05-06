@@ -44,8 +44,9 @@ int main(int argc, char** argv){
         
         //test input for playerboard testing
         else if (userInput == 23) {
-            PlayerBoard* board = new PlayerBoard();
-            board->printMosaic();
+            Player* player = new Player("Bob");
+            player->printPlayerBoard();
+            delete player;
             
 
         }

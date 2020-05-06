@@ -8,6 +8,12 @@ Player::Player(std::string playerName) :
 }
 
 Player::~Player(){
+    delete playerBoard;
+}
+
+void Player::printPlayerBoard(){
+std::cout<<"Mosaic for "<< playerName<<std::endl;
+playerBoard->printMosaic();
 }
 
 std::string Player::getName(){

@@ -7,6 +7,11 @@
 
 PlayerBoard::PlayerBoard(){
 
+
+  //  void PlayerBoard::insertIntoWall(std::list<char>* boxLid){
+
+ //   }
+
     
     std::vector<std::vector<char>> lines{
         {'.'},
@@ -24,6 +29,10 @@ PlayerBoard::PlayerBoard(){
             factoryWall[i][j]='.';
         } 
     }
+    }
+
+    PlayerBoard::~PlayerBoard(){
+        
     }
 
     void PlayerBoard::printWall(int x){

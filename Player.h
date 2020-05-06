@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
+#include <iostream>
 #include "PlayerBoard.h"
 
 class Player{
@@ -11,6 +12,7 @@ class Player{
         void setScore(int score);
         PlayerBoard* getPlayerBoard();
         std::string getName();
+        void printPlayerBoard();
 
     private:
         PlayerBoard* playerBoard;
