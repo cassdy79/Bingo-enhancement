@@ -2,6 +2,8 @@
 #define PLAYERBOARD_H
 #include <vector>
 #include <list>
+#include <iostream>
+#include <string>
 
 #include "Types.h"
 
@@ -29,9 +31,9 @@ class PlayerBoard{
     void printWall(int x);
 
   private:
-    std::vector<std::vector<char>> factoryLines;
+    std::vector<std::vector<char>> mosaicLines;
     char factoryWall[5][5];
-      
+    
 };
 
 

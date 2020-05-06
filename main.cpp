@@ -51,7 +51,28 @@ int main(int argc, char** argv){
 
         }
 
-        
+        //test for inputting tiles
+        else if (userInput == 24) {
+            Player* player = new Player("Bob");
+            player->printPlayerBoard();
+
+            char r = 'R';
+            char* pR = &r;
+            std::list<char>* boxLid = nullptr;
+
+            player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->printPlayerBoard();
+
+
+            delete player;
+            
+
+        }
+
         else {
             std::cout<<"Invalid Input"<<std::endl;
             userInput = 0;

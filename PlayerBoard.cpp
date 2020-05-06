@@ -1,18 +1,10 @@
-#include <iostream>
-#include <string>
 
 #include "PlayerBoard.h"
-
+#include "GameBoard.h"
 
 
 PlayerBoard::PlayerBoard(){
 
-
-  //  void PlayerBoard::insertIntoWall(std::list<char>* boxLid){
-
- //   }
-
-    
     std::vector<std::vector<char>> lines{
         {'.'},
         {'.','.'},
@@ -21,7 +13,7 @@ PlayerBoard::PlayerBoard(){
         {'.','.','.','.','.'},
         {'.','.','.','.','.'}}; 
 
-        factoryLines = lines;
+        mosaicLines = lines;
 
     //Fills playerboard Wall with default values.
     for (int i = 0; i < 5; ++i) {
@@ -32,15 +24,66 @@ PlayerBoard::PlayerBoard(){
     }
 
     PlayerBoard::~PlayerBoard(){
-        
+
     }
+
+
+    void PlayerBoard::insertIntoWall(std::list<char>* boxLid){
+
+
+    }
+
+    void PlayerBoard::insertIntoLine(int mosaicLineNumber, std::list<char>* boxLid, char* factoryTiles) {
+
+        int lineSize = mosaicLines[mosaicLineNumber].size();
+        bool inserted = false;
+
+        for (int i = 0; i < lineSize && !inserted; i++) {
+            //looks for earliest index that is empty and fills factory tile.
+            if (mosaicLines[mosaicLineNumber][i] == '.'){
+                mosaicLines[mosaicLineNumber][i] = *factoryTiles;
+                //bool check to break out of loop once inserted
+                inserted = true;
+
+            }
+
+        }
+
+        if(!inserted){
+            for (int i = 0; i < 5 && !inserted; i++) {
+            //looks for earliest index in broken tiles that is empty and fills factory tile.
+            if (mosaicLines[5][i] == '.'){
+                mosaicLines[5][i] = *factoryTiles;
+                //bool check to break out of loop once inserted
+                inserted = true;
+
+            }
+        }
+
+        //if broken tiles line is full, send it to box lid.
+        if(!inserted){
+
+            boxLid->push_back(*factoryTiles);
+
+        }
+
+        }
+            
+    }
+
+    void PlayerBoard::insertIntoLine(int factoryLineNumber, std::list<char>* boxLid, std::list<char>* discardTiles) {
+
+
+
+    }
+
 
     void PlayerBoard::printWall(int x){
         
-        int size = factoryLines[x].size();
+        int size = mosaicLines[x].size();
 
         for(int i = 0; i < size; ++i){
-            std::cout<<" "<<factoryLines[x][i];
+            std::cout<<" "<<mosaicLines[x][i];
         }
         if (x!=5) {
         std::cout<<" ||";
