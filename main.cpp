@@ -58,6 +58,7 @@ int main(int argc, char** argv){
 
             char r = 'R';
             char* pR = &r;
+            char y = 'Y';
             std::list<char>* boxLid = nullptr;
 
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
@@ -65,6 +66,7 @@ int main(int argc, char** argv){
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
+            player->getPlayerBoard()->insertIntoLine(3, boxLid, &y);
             player->printPlayerBoard();
 
 

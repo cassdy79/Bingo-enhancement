@@ -31,8 +31,24 @@ class PlayerBoard{
     void printWall(int x);
 
   private:
-    std::vector<std::vector<char>> mosaicLines;
-    char factoryWall[5][5];
+    char red;
+    char empty;
+    char yellow;
+    char dblue;
+    char lblue;
+    char black;
+
+    Red r;
+    Yellow y;
+    DBlue b;
+    LBlue l;
+    Black u;
+    Empty e;
+
+
+    std::vector<std::vector<char*>> mosaicLines;
+    char* factoryWall[5][5];
+    char* broken[5];
     
 };
 
