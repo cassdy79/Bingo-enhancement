@@ -51,15 +51,15 @@ int main(int argc, char** argv){
 
         }
 
-        //test for inputting tiles
-        else if (userInput == 24) {
+        //test for inputting tiles and adding to wall
+            else if (userInput == 24) {
             Player* player = new Player("Bob");
             player->printPlayerBoard();
 
             char r = 'R';
             char* pR = &r;
             char y = 'Y';
-            std::list<char>* boxLid = nullptr;
+            std::list<char*> boxLid;
 
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
@@ -67,8 +67,11 @@ int main(int argc, char** argv){
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
             player->getPlayerBoard()->insertIntoLine(1, boxLid, pR);
             player->getPlayerBoard()->insertIntoLine(3, boxLid, &y);
+            std::cout<<"Inserting to player line"<<std::endl;
             player->printPlayerBoard();
-
+            player->getPlayerBoard()->insertIntoWall(boxLid);
+            std::cout<<"Inserting to player Wall if line is full"<<std::endl;
+            player->printPlayerBoard();
 
             delete player;
             

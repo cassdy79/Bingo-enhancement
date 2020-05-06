@@ -16,19 +16,22 @@ class PlayerBoard{
     ~PlayerBoard();
 
     //will move tiles from the factory lines into the wall, passing through boxLid to add extra tiles into the lid
-    void insertIntoWall(std::list<char>* boxLid);
+    void insertIntoWall(std::list<char*> boxLid);
 
     //specifies the line to move the tiles into out of the players lines, adds extra tiles to the boxLid
-    void insertIntoLine(int factoryLineNumber, std::list<char>* boxLid, char* factoryTiles);
+    void insertIntoLine(int factoryLineNumber, std::list<char*> boxLid, char* factoryTiles);
 
     //overloaded function for when pulling from discard tiles as opposed to factory offers
-    void insertIntoLine(int factoryLineNumber, std::list<char>* boxLid, std::list<char>* discardTiles);
+    //void insertIntoLine(int factoryLineNumber, std::list<char*> boxLid, std::list<char>* discardTiles);
 
     //function to print current status of player board
     void printMosaic();
 
     //helps print a line of the wall for the mosaic
     void printWall(int x);
+
+    //helps find tile to replace in wall
+    void findTile(char* x, int wall);
 
   private:
     char red;
