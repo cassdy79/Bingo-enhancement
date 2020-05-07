@@ -3,6 +3,11 @@
 
 #include <list>
 #include <string>
+#include <random>
+#include <iostream>
+#include "Types.h"
+#include "LinkedList.h"
+
 
 class GameBoard{
     public:
@@ -13,19 +18,28 @@ class GameBoard{
     char* retrieveFactory(int factoryNumber);
 
     //adds tiles into factory offers from tileBag
-    void insertIntoFactory(int factoryNumber, char tile1, char tile2, char tile3, char tile4);
+    void insertIntoFactory();
 
-    //randomises tile order in tileBag
+    //generate a shuffled R,L,Y,B,U into the tileOrder string 
     void generateTileOrder();
 
-    //fills tile bag with tiles from the box lid, may need to randomise tiles but uncertain as assignment spec says to only randomise tiles once
+    //fills the tile bag at the beginning of the game
     void fillTileBag();
 
+    //fills up tilebag at the end of a round
+    //fills tile bag with tiles from the box lid, may need to randomise tiles but uncertain as assignment spec says to only randomise tiles once
+    void fillTileBag(LinkedList* boxLid);
+
+    //prints out the factories
+    void printFactory();
+
     private:
-    char factory0[3], factory1[4], factory2[4], factory3[4], factory4[4], factory5[4];
-    std::list<char> tileBag;
-    std::list<char> boxLid;
+    char factory0[FACTORY_SIZE], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];
+    char factoryTiles[FACTORY_SIZE];
+    LinkedList* tileBag;
+    LinkedList* boxLid;
     std::list<char> discardTiles;
+    std::string tileOrder;
 
 };
 
