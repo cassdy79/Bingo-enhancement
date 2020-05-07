@@ -14,18 +14,16 @@ Player::~Player(){
 void Player::printPlayerBoard(){
 std::cout<<"Mosaic for "<< playerName<<std::endl;
 playerBoard->printMosaic();
+//std::cout<<"Current Score " << getScore() <<std::endl<<std::endl;
 }
 
 std::string Player::getName(){
     return playerName;
 }
 
-void Player::setScore(int score){
-    playerScore = score;
-}
 
 int Player::getScore(){
-    return playerScore;
+    return playerBoard->getScore();;
 }
 
 PlayerBoard* Player::getPlayerBoard(){

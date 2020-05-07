@@ -9,7 +9,7 @@ class Player{
         Player(std::string playerName);
         ~Player();
         int getScore();
-        void setScore(int score);
+       // void setScore(int score);
         PlayerBoard* getPlayerBoard();
         std::string getName();
         void printPlayerBoard();

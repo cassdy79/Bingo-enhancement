@@ -4,23 +4,16 @@
 
 
 PlayerBoard::PlayerBoard(){
-
-    red = 'r';
-    empty = '.';
-    yellow = 'y';
-    dblue = 'b';
-    lblue = 'l';
-    black = 'u';
-
-    this->r = &red;
-    this->e = &empty;
-    this->y = &yellow;
-    this->b = &dblue;
-    this->l = &lblue;
-    this->u = &black;
+    score = 0;
+    r = 'r';
+    e = '.';
+    y = 'y';
+    b = 'b';
+    l = 'l';
+    u = 'u';
 
     //fills in the lines with default empty value '.'
-    std::vector<std::vector<char*>> lines{
+    std::vector<std::vector<char>> lines{
         {e},
         {e,e},
         {e,e,e},
@@ -33,8 +26,8 @@ PlayerBoard::PlayerBoard(){
 
 
     //Fills broken tiles with default empty values.
-    for (int i = 0; i < 5; ++i) {
-        broken[i] = e; 
+    for (int i = 0; i < 7; ++i) {
+        broken[i] = ' '; 
     }
 
 
@@ -65,33 +58,34 @@ PlayerBoard::~PlayerBoard(){
 
 }
 
-void PlayerBoard::findTile(char* x, int wall){
+void PlayerBoard::findTile(char x, int wall){
     
     char tile = ' ';
 
-        if (*x == 'R'){
+        if (x == 'R'){
             tile = 'r';
-        } else if (*x == 'Y') {
+        } else if (x == 'Y') {
             tile = 'y';
-        } else if (*x == 'B') {
+        } else if (x == 'B') {
             tile = 'b';
-        } else if (*x == 'L') {
+        } else if (x == 'L') {
             tile = 'l';
-        } else if (*x == 'U') {
+        } else if (x == 'U') {
             tile = 'u';
         }
 
     for (int i = 0; i < 5; ++i) {
 
-        if (tile == *(factoryWall[wall][i]) ) {
+        if (tile == factoryWall[wall][i] ) {
             factoryWall[wall][i] = x;
+            calculateScore(wall, i);
         }
     }
 
 
 }
 
-void PlayerBoard::insertIntoWall(std::list<char*> boxLid){
+void PlayerBoard::insertIntoWall(LinkedList* boxLid){
 
     for (int i = 0; i <5; ++i){
         int lineSize = mosaicLines[i].size();
@@ -105,7 +99,7 @@ void PlayerBoard::insertIntoWall(std::list<char*> boxLid){
         if (filled == lineSize){
             for (int j = 0; j < lineSize; ++j){
                 if (j != 0) {
-                    boxLid.push_back(mosaicLines[i][j]);
+                    boxLid->addBack(mosaicLines[i][j]);
 
                     mosaicLines[i][j] = e;
                 }
@@ -118,9 +112,30 @@ void PlayerBoard::insertIntoWall(std::list<char*> boxLid){
 
     }
 
+    //counts broken tiles and sets negative score.
+            int deduction = 0;
+        for( int i = 0; i<7 && broken[i]!=' '; ++i ) {
+            if(i < 2) {
+                deduction = -1;
+                score += deduction;
+                broken[i] = ' ';
+
+            } else if (i >= 2 && i <5) {
+                deduction = -2;
+                score += deduction;
+                broken[i] = ' ';
+            } else {
+                deduction = -3;
+                score += deduction;
+                broken[i] = ' ';
+            }
+
+
+        }
+
 }
 
-void PlayerBoard::insertIntoLine(int mosaicLineNumber, std::list<char*> boxLid, char* factoryTiles) {
+void PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles) {
 
     int lineSize = mosaicLines[mosaicLineNumber].size();
     bool inserted = false;
@@ -137,9 +152,9 @@ void PlayerBoard::insertIntoLine(int mosaicLineNumber, std::list<char*> boxLid, 
     }
 
     if(!inserted){
-        for (int i = 0; i < 5 && !inserted; i++) {
+        for (int i = 0; i < 7 && !inserted; i++) {
             //looks for earliest index in broken tiles that is empty and fills factory tile.
-            if (broken[i] == e){
+            if (broken[i] == ' '){
                 broken[i] = factoryTiles;
                 //bool check to break out of loop once inserted
                 inserted = true;
@@ -150,7 +165,7 @@ void PlayerBoard::insertIntoLine(int mosaicLineNumber, std::list<char*> boxLid, 
             //if broken tiles line is full, send it to box lid.
     if(!inserted){
         
-        boxLid.push_back(factoryTiles);
+        boxLid->addBack(factoryTiles);
 
     }
 
@@ -158,11 +173,16 @@ void PlayerBoard::insertIntoLine(int mosaicLineNumber, std::list<char*> boxLid, 
             
     
 
-    //void PlayerBoard::insertIntoLine(int factoryLineNumber, std::list<char*> boxLid, std::list<char>* discardTiles) {
+  //  void PlayerBoard::insertIntoLine(int factoryLineNumber, LinkedList* boxLid, std::list<char> discardTiles) {
 
 
 
    // }
+
+int PlayerBoard::getScore(){
+
+    return score;
+}
 
 
 void PlayerBoard::printWall(int x){
@@ -170,19 +190,19 @@ void PlayerBoard::printWall(int x){
     int size = mosaicLines[x].size();
         if (x!=5) {
             for(int i = size-1; i >= 0; --i){
-                std::cout<<" "<<*(mosaicLines[x][i]);
+                std::cout<<" "<<mosaicLines[x][i];
             }
         
             std::cout<<" ||";
             for(int i = 0; i < 5; ++i){
-                std::cout<<" "<<*(factoryWall[x][i]);
+                std::cout<<" "<<factoryWall[x][i];
             }
             std::cout<<std::endl;
 
         } else {
 
             for(int i = 0; i < 5; ++i){
-                std::cout<<" "<<*(broken[i]);
+                std::cout<<" "<<broken[i];
             }
             std::cout<<std::endl;
         }
@@ -202,8 +222,71 @@ void PlayerBoard::printMosaic(){
     printWall(4);
     std::cout<<"broken:";
     printWall(5);
-    std::cout<<std::endl;
 }
 
 
+void PlayerBoard::calculateScore(int row, int col) {
+bool horz = false;
+bool vert = false;
+int horizontal = 0;
+int vertical = 0;
 
+if(!empty(factoryWall[row][col])){
+
+    //horizontal check
+    if((col+1)<5){
+        if(!empty(factoryWall[row][col+1])){
+            horz = true;
+        }
+    }
+
+    if((col-1)>=0){
+        if(!empty(factoryWall[row][col-1])){
+            horz = true;
+        }
+    }
+
+        //vertical check
+    if((row+1)<5){
+        if(!empty(factoryWall[row+1][col])){
+            vert = true;
+        }
+    }
+
+    if((row-1)>=0){
+        if(!empty(factoryWall[row-1][col])){
+            vert = true;
+        }
+    }
+
+    if(horz){
+        for(int i = 0; i <5; ++i){
+            std::cout<<factoryWall[i][col];
+            if(!empty(factoryWall[row][i])){
+                ++horizontal;
+            }
+        }
+    }
+    if(vert){
+        for(int i = 0; i <5; ++i){
+            std::cout<<factoryWall[i][col];
+            if(!empty(factoryWall[i][col])){
+                ++vertical;
+            }
+        }
+    }
+
+    if(!horz && !vert){
+        ++score;
+    }
+    score += (horizontal + vertical);
+    }
+}
+
+bool PlayerBoard::empty(char x) {
+    if (x == 'r' || x == 'y' || x == 'b' || x == 'l' || x == 'u'){
+        return true;
+    }
+
+    return false;
+}
