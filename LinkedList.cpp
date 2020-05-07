@@ -21,7 +21,7 @@ int LinkedList::size(){
     return count;
 }
 
-char LinkedList::getValue(unsigned int index){
+char LinkedList::getValue(int index){
     int count = 0;
     Node* current = head;
     char returnValue = ' ';
@@ -49,7 +49,7 @@ void LinkedList::addFront(char data){
 void LinkedList::addBack(char data){
     Node* newNode = new Node(data, nullptr);
     Node* current = head;
-    int count = 0;
+    //int count = 0;
     if(current == nullptr){
         head = newNode;
     } else {
@@ -65,22 +65,27 @@ void LinkedList::removeFront(){
 }
 
 void LinkedList::removeBack(){
-    Node* current = head;
-    if(current->next == nullptr)
-        head = nullptr;
-    else{
-        while(current->next != nullptr){
-            current = current->next;
+    if (head->next == nullptr) {
+        removeFront();
+     } else {
+        Node* prev = nullptr;
+        Node* current = head;
+
+        while (current->next != nullptr) {
+           prev = current;
+           current = current->next;
         }
-        current = nullptr;
-    }
+
+        prev->next = current->next;
+        delete current;
+     }
 }
 
 void LinkedList::clear(){
     Node* current = head;
     Node* nextNode = nullptr;
     if(head->next == nullptr){
-        head == nullptr;
+        head = nullptr;
     } else {
         while(current != nullptr)
         nextNode = current->next;

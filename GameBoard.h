@@ -8,7 +8,6 @@
 #include "Types.h"
 #include "LinkedList.h"
 
-
 class GameBoard{
     public:
     GameBoard();

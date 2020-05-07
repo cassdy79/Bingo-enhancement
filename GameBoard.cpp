@@ -12,7 +12,6 @@ GameBoard::GameBoard(){
 }
 
 GameBoard::~GameBoard(){
-
 }
 
 char* GameBoard::retrieveFactory(int factoryNumber){

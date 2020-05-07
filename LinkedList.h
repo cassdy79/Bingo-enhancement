@@ -12,6 +12,7 @@ class Node{
 class LinkedList{
     private:
         Node *head;
+
     public:
         LinkedList();
 
@@ -21,7 +22,7 @@ class LinkedList{
 
         int size();
 
-        char getValue(unsigned int index);
+        char getValue(int index);
 
         void addFront(char data);
 

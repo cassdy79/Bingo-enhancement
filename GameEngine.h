@@ -21,6 +21,7 @@ class GameEngine{
     private:
     GameBoard* gameBoard;
     Player* winner;
+    LinkedList* tileBag;
 
 };
 
