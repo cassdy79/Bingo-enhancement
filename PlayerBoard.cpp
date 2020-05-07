@@ -261,7 +261,7 @@ if(!empty(factoryWall[row][col])){
 
     if(horz){
         for(int i = 0; i <5; ++i){
-            std::cout<<factoryWall[i][col];
+ 
             if(!empty(factoryWall[row][i])){
                 ++horizontal;
             }
@@ -269,7 +269,7 @@ if(!empty(factoryWall[row][col])){
     }
     if(vert){
         for(int i = 0; i <5; ++i){
-            std::cout<<factoryWall[i][col];
+
             if(!empty(factoryWall[i][col])){
                 ++vertical;
             }
