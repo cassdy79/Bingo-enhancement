@@ -324,3 +324,12 @@ bool PlayerBoard::empty(char x) {
 
     return false;
 }
+
+std::string PlayerBoard::playerMosaicString(int rowIndex){
+    std::string mosaicOutput = {};
+    for(int i = 0; i < 5; i++){
+        mosaicOutput += factoryWall[rowIndex][i];
+    }
+
+    return mosaicOutput;
+}
