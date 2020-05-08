@@ -155,12 +155,19 @@ void GameEngine::saveGame(){
     saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n";
 
     for(int i = 0; i <= 5 ; i++){
-        std::string factoryOutput = gameBoard->factoryOutput(i);
-        saveFile << factoryOutput << "\n";        
+        saveFile << gameBoard->factoryOutput(i) << "\n";        
     }
 
-    GameBoard player1Board = player1->getPlayerBoard;
-    GameBoard player2Board = player2->getPlayerBoard;
+    PlayerBoard player1Board = player1->getPlayerBoard;
+    PlayerBoard player2Board = player2->getPlayerBoard;
+
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board.playerMosaicString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board.playerMosaicString(i) << "\n";
+    }
+
 
 
 }

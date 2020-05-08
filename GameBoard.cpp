@@ -311,7 +311,7 @@ LinkedList* GameBoard::getBoxLid(){
 }
 
 std::string GameBoard::factoryOutput(int factoryIndex){
-    std::string returnString;
+    std::string returnString = {};
     if(factoryIndex == 0){
         for(int i : factory0){
             returnString += i;
@@ -339,4 +339,6 @@ std::string GameBoard::factoryOutput(int factoryIndex){
     } else {
         return "invalid input";
     }
+
+    return returnString;
 }

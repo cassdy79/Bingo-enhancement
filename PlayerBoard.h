@@ -45,6 +45,9 @@ class PlayerBoard{
     //retrieve score
     int getScore();
 
+    //convert player mosaic into string for save game file
+    std::string playerMosaicString(int rowIndex);
+
   private:
     char r;
     char e;
