@@ -158,14 +158,14 @@ void GameEngine::saveGame(){
         saveFile << gameBoard->factoryOutput(i) << "\n";        
     }
 
-    PlayerBoard player1Board = player1->getPlayerBoard;
-    PlayerBoard player2Board = player2->getPlayerBoard;
+    PlayerBoard* player1Board = player1->getPlayerBoard();
+    PlayerBoard* player2Board = player2->getPlayerBoard();
 
     for(int i = 0; i < 5; i++){
-        saveFile << player1Board.playerMosaicString(i) << "\n";
+        saveFile << player1Board->playerMosaicString(i) << "\n";
     }
     for(int i = 0; i < 5; i++){
-        saveFile << player2Board.playerMosaicString(i) << "\n";
+        saveFile << player2Board->playerMosaicString(i) << "\n";
     }
 
 
