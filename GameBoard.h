@@ -37,7 +37,6 @@ class GameBoard{
     char factoryTiles[FACTORY_SIZE];
     LinkedList* tileBag;
     LinkedList* boxLid;
-    std::list<char> discardTiles;
     std::string tileOrder;
 
 };
