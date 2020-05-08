@@ -19,10 +19,13 @@ class PlayerBoard{
     void insertIntoWall(LinkedList* boxLid);
 
     //specifies the line to move the tiles into out of the players lines, adds extra tiles to the boxLid
-    void insertIntoLine(int factoryLineNumber, LinkedList* boxLid, char factoryTiles);
+    bool insertIntoLine(int factoryLineNumber, LinkedList* boxLid, char factoryTiles);
 
     //overloaded function for when pulling from discard tiles as opposed to factory offers
-//    void insertIntoLine(int factoryLineNumber, LinkedList* boxLid, std::list<char> discardTiles);
+    //void insertIntoLine(int factoryLineNumber, LinkedList* boxLid, std::list<char> discardTiles);
+
+    //checks if a wall line contains the given tile
+    bool checkWall(int wallLine, char tile);
 
     //function to print current status of player board
     void printMosaic();

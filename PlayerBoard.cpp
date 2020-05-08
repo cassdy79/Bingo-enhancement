@@ -135,39 +135,45 @@ void PlayerBoard::insertIntoWall(LinkedList* boxLid){
 
 }
 
-void PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles) {
+bool PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles) {
+    if(checkWall(mosaicLineNumber, factoryTiles)==false){
+        int lineSize = mosaicLines[mosaicLineNumber].size();
+        bool inserted = false;
 
-    int lineSize = mosaicLines[mosaicLineNumber].size();
-    bool inserted = false;
-
-    for (int i = 0; i < lineSize && !inserted; i++) {
-            //looks for earliest index that is empty and fills factory tile.
-        if (mosaicLines[mosaicLineNumber][i] == e){
-            mosaicLines[mosaicLineNumber][i] = factoryTiles;
-            //bool check to break out of loop once inserted
-            inserted = true;
-
-        }
-
-    }
-
-    if(!inserted){
-        for (int i = 0; i < 7 && !inserted; i++) {
-            //looks for earliest index in broken tiles that is empty and fills factory tile.
-            if (broken[i] == ' '){
-                broken[i] = factoryTiles;
+        for (int i = 0; i < lineSize && !inserted; i++) {
+                //looks for earliest index that is empty and fills factory tile.
+            if (mosaicLines[mosaicLineNumber][i] == e){
+                mosaicLines[mosaicLineNumber][i] = factoryTiles;
                 //bool check to break out of loop once inserted
                 inserted = true;
 
             }
-        }
-    }
-            //if broken tiles line is full, send it to box lid.
-    if(!inserted){
-        
-        boxLid->addBack(factoryTiles);
 
+        }
+
+        if(!inserted){
+            for (int i = 0; i < 7 && !inserted; i++) {
+                //looks for earliest index in broken tiles that is empty and fills factory tile.
+                if (broken[i] == ' '){
+                    broken[i] = factoryTiles;
+                    //bool check to break out of loop once inserted
+                    inserted = true;
+
+                }
+            }
+        }
+                //if broken tiles line is full, send it to box lid.
+        if(!inserted){
+            
+            boxLid->addBack(factoryTiles);
+
+        }
+        return true;
     }
+    else{
+        return false;
+    }
+    
 
 }
             
@@ -178,6 +184,16 @@ void PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char 
 
 
    // }
+
+bool PlayerBoard::checkWall(int wallLine, char tile){
+    bool check=false;
+    for(int i=0;i<5;i++){
+        if(factoryWall[wallLine][i]==tile){
+            check=true;
+        }
+    }
+    return check;
+}
 
 int PlayerBoard::getScore(){
 
