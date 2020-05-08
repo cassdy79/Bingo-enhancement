@@ -96,15 +96,14 @@ void printMenu(){
 
 void azulGame(){
     std::string playerName1, playerName2;
+    GameEngine* engine = new GameEngine();
     std::cout << "Enter a name for player 1";
     std::cin >> playerName1;
-    Player* player1 = new Player(playerName1);
     std::cout << "Enter a name for player 2";
     std::cin >> playerName2;
-    Player* player2 = new Player(playerName2);
 
-    GameEngine* engine = new GameEngine();
-    engine->playGame(player1, player2);
+    engine->createPlayers(playerName1, playerName2);
+    engine->playGame();
 }
 
 void showCredits(){

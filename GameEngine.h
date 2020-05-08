@@ -13,15 +13,20 @@ class GameEngine{
     ~GameEngine();
 
     //The gameplay method
-    void playGame(Player* player1, Player* player2);
+    void playGame();
 
     //Returns a winner
     Player* getWinner();
+
+    //creates players to store into GameEngine
+    void GameEngine::createPlayers(std::string playerName1, std::string playerName2);
 
     private:
     GameBoard* gameBoard;
     Player* winner;
     LinkedList* tileBag;
+    Player* player1;
+    Player* player2;
 
 };
 
