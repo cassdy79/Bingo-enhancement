@@ -32,12 +32,35 @@ class GameBoard{
     //prints out the factories
     void printFactory();
 
+    //checks if factories are empty
+    bool factoriesEmpty();
+
+    //checks if given factory is empty
+    bool factoryEmpty(int factoryNumber);
+
+    //takes a tile from selected factory
+    int takeTile(int factoryNumber, char tile);
+
+    //adds something into centre factory
+    void addIntoCentre(char tile);
+
+    //checks if centre has an F
+    bool checkCentre();
+
+    //takes the first player marker away from centre factory
+    void takeFirstMarker();
+
+    //returns a box lid
+    LinkedList* getBoxLid();
+
     private:
-    char factory0[FACTORY_SIZE], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];
+    char factory0[CENTRE_FACTORY], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];
     char factoryTiles[FACTORY_SIZE];
     LinkedList* tileBag;
     LinkedList* boxLid;
+    std::list<char> discardTiles;
     std::string tileOrder;
+    int centreSize;
 
 };
 

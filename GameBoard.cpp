@@ -1,7 +1,7 @@
 #include "GameBoard.h"
 
 GameBoard::GameBoard(){
-    factory0[FACTORY_SIZE] = {};
+    factory0[CENTRE_FACTORY] = {};
     factory1[FACTORY_SIZE] = {};
     factory2[FACTORY_SIZE] = {};
     factory3[FACTORY_SIZE] = {};
@@ -9,6 +9,8 @@ GameBoard::GameBoard(){
     factory5[FACTORY_SIZE] = {};
     factoryTiles[FACTORY_SIZE] = {};
     tileBag = new LinkedList();
+    boxLid = new LinkedList();
+    centreSize = 1;
 }
 
 GameBoard::~GameBoard(){
@@ -68,6 +70,9 @@ void GameBoard::fillTileBag(){
 
 void GameBoard::insertIntoFactory(){
     factory0[0] = 'F';
+    for(int i=1;i<CENTRE_FACTORY;i++){
+        retrieveFactory(0)[i] = '.';
+    }
     for(int i=0;i<NUM_FACTORIES;i++){
 
         for(int j=0;j<FACTORY_SIZE;j++){
@@ -162,18 +167,145 @@ void GameBoard::generateTileOrder(){
 
 void GameBoard::printFactory(){
     std::cout << "Factories: " << std::endl;
-    std::cout << "Tile Order: " << tileOrder << std::endl;
+    //std::cout << "Tile Order: " << tileOrder << std::endl;
 
+    
     //for(int i=0;i<tileBag->size();i++){
     //    std::cout << tileBag->getValue(i)<< std::endl;
     //}
+    std::cout << "0: ";
+    for(int j=0; j<CENTRE_FACTORY; j++){
+        
+        if(retrieveFactory(0)[j]!='.'){
+            std::cout << retrieveFactory(0)[j] << " ";
+        }
+    }
 
-    for(int i=0; i<ALL_FACTORES; i++){
+    std::cout << std::endl;
+
+    for(int i=1; i<ALL_FACTORES; i++){
         std::cout << i << ": ";
         for(int j=0; j<FACTORY_SIZE; j++){
-            std::cout << retrieveFactory(i)[j] << " ";
+            if(retrieveFactory(i)[j]!='.'){
+                std::cout << retrieveFactory(i)[j] << " ";
+            }
         }
         std::cout << std::endl;
     }
     std::cout << std::endl;
+}
+
+bool GameBoard::factoryEmpty(int factoryNumber){
+    if(factoryNumber==0){
+        int counter=0;
+        for(int i=0; i<CENTRE_FACTORY; i++){
+            if(retrieveFactory(factoryNumber)[i]=='.'){
+                counter++;
+            }
+        }
+        if(counter==CENTRE_FACTORY){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        int counter=0;
+        for(int i=0; i<FACTORY_SIZE; i++){
+            if(retrieveFactory(factoryNumber)[i]=='.'){
+                counter++;
+            }
+        }
+        if(counter==FACTORY_SIZE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+}
+
+bool GameBoard::factoriesEmpty(){
+    int counter=0;
+    for(int i=0; i<ALL_FACTORES; i++){
+        if(factoryEmpty(i)==true){
+            counter++;
+        }
+    }
+    if(counter==ALL_FACTORES){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+int GameBoard::takeTile(int factoryNumber, char tile){
+    int check = 0;
+    int storeSize = 0;
+    char store[4];
+    if(factoryNumber==0){
+        for(int i=0; i<CENTRE_FACTORY; i++){
+            if(tile==retrieveFactory(factoryNumber)[i]){
+                check++;
+                retrieveFactory(factoryNumber)[i]='.';
+                centreSize--;
+            }
+        }
+    }
+    else{
+        for(int i=0; i<FACTORY_SIZE; i++){
+            if(tile==retrieveFactory(factoryNumber)[i]){
+                check++;
+                retrieveFactory(factoryNumber)[i]='.';
+            }
+            else{
+                store[storeSize] = retrieveFactory(factoryNumber)[i];
+                storeSize++;
+            }
+        }
+    }
+    if(check>0){
+        for(int i=0;i<FACTORY_SIZE;i++){
+            for(int j=0;j<storeSize;j++){
+               if(retrieveFactory(factoryNumber)[i]==store[j]){
+                   retrieveFactory(factoryNumber)[i]='.';
+               }
+            }
+        }
+
+        for(int i=0;i<storeSize;i++){
+            addIntoCentre(store[i]);
+        }
+    }
+    return check;
+}
+
+void GameBoard::takeFirstMarker(){
+    for(int i=0;i<CENTRE_FACTORY;i++){
+        if(retrieveFactory(0)[i]=='F'){
+            retrieveFactory(0)[i]='.';
+        }
+    }
+}
+
+bool GameBoard::checkCentre(){
+    bool check=false;
+    for(int i=0;i<CENTRE_FACTORY;i++){
+        if(retrieveFactory(0)[i]=='F'){
+            check=true;
+        }
+    }
+    return check;
+}
+
+void GameBoard::addIntoCentre(char tile){
+    retrieveFactory(0)[centreSize]=tile;
+    centreSize++;
+}
+
+LinkedList* GameBoard::getBoxLid(){
+    return boxLid;
 }
