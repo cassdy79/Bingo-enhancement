@@ -28,6 +28,9 @@ class GameEngine{
     //Returns a winner
     Player* getWinner();
 
+    //saves game to text file
+    void saveGame();
+
     private:
     GameBoard* gameBoard;
     Player* winner;

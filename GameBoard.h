@@ -53,6 +53,9 @@ class GameBoard{
     //returns a box lid
     LinkedList* getBoxLid();
 
+    //returns what is currently in the factories as a string to store in the player save
+    std::string factoryOutput(int factoryIndex);
+
     private:
     char factory0[CENTRE_FACTORY], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];
     char factoryTiles[FACTORY_SIZE];
