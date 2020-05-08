@@ -15,6 +15,7 @@ Player::~Player(){
 void Player::printPlayerBoard(){
     std::cout<<"Mosaic for "<< playerName<<std::endl;
     playerBoard->printMosaic();
+    //uncomment below to see score changing along with each mosaic. For testing.
     //std::cout<<"Current Score " << getScore() <<std::endl<<std::endl;
 }
 
