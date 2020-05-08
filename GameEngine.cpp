@@ -77,9 +77,11 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
         int numTiles = gameBoard->takeTile(factory, tile);
         if(numTiles>0){
             if(factory==0 && gameBoard->checkCentre()==true){
+                player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), 'F');
                 for(int x=0;x<numTiles;x++){
                     if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
                         check=true;
+                        
                         gameBoard->takeFirstMarker();
                         player->setFirstPlayerMark(true);
                     }
