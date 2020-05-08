@@ -1,4 +1,6 @@
 #include "GameEngine.h"
+#include <fstream>
+#include <iostream>
 
 GameEngine::GameEngine(){
     winner = nullptr;
@@ -141,5 +143,26 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
     else{
         return false;
     }
+
+}
+
+void GameEngine::saveGame(){
+    std::string saveFileName;
+    std::cout << "Please enter the name of your save game\n";
+    std::cin >> saveFileName;
+
+    std::ofstream saveFile;
+    saveFile.open(saveFileName + ".txt");
+    // need to add player turn indicator
+    saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n";
+
+    for(int i = 0; i <= 5 ; i++){
+        std::string factoryOutput = gameBoard->factoryOutput(i);
+        saveFile << factoryOutput << "\n";        
+    }
+
+    GameBoard player1Board = player1->getPlayerBoard;
+    GameBoard player2Board = player2->getPlayerBoard;
+
 
 }

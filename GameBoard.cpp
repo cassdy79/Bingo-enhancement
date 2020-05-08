@@ -309,3 +309,34 @@ void GameBoard::addIntoCentre(char tile){
 LinkedList* GameBoard::getBoxLid(){
     return boxLid;
 }
+
+std::string GameBoard::factoryOutput(int factoryIndex){
+    std::string returnString;
+    if(factoryIndex == 0){
+        for(int i : factory0){
+            returnString += i;
+        }
+    } else if (factoryIndex == 1){
+        for(int i : factory1){
+            returnString += i;
+        }
+    } else if (factoryIndex == 2){
+        for(int i : factory2){
+            returnString += i;
+        }
+    } else if (factoryIndex == 3){
+        for(int i : factory3){
+            returnString += i;
+        }
+    } else if (factoryIndex == 4){
+        for(int i : factory4){
+            returnString += i;
+        }
+    } else if (factoryIndex == 5){
+        for(int i : factory5){
+            returnString += i;
+        }
+    } else {
+        return "invalid input";
+    }
+}
