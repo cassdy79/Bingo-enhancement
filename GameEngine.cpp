@@ -128,7 +128,7 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
 bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* player){
     //check if input string is valid (1-5, RYBLUF, and 1-5)
     if(input[0]=='0' || input[0]=='1' || input[0]=='2' || input[0]=='3' || input[0]=='4' || input[0]=='5'){
-        if(input[1]=='R' || input[1]=='Y' || input[1]=='B' || input[1]=='L' || input[1]=='U' || input[1]=='F'){
+        if(input[1]=='R' || input[1]=='Y' || input[1]=='B' || input[1]=='L' || input[1]=='U'){
             if(input[0]=='0' || input[2]=='1' || input[2]=='2' || input[2]=='3' || input[2]=='4' || input[2]=='5'){
                 return true;
             }
