@@ -13,11 +13,14 @@ class Player{
         PlayerBoard* getPlayerBoard();
         std::string getName();
         void printPlayerBoard();
+        void setFirstPlayerMark(bool set);
+        bool firstPlayer();
 
     private:
         PlayerBoard* playerBoard;
         int playerScore;
         std::string playerName;
+        bool firstPlayerMark;
 };
 
 #endif // PLAYER_H

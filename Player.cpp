@@ -5,6 +5,7 @@ Player::Player(std::string playerName) :
 {
     this->playerName =  playerName;
     playerBoard = new PlayerBoard();
+    this->firstPlayerMark = false;
 }
 
 Player::~Player(){
@@ -12,9 +13,9 @@ Player::~Player(){
 }
 
 void Player::printPlayerBoard(){
-std::cout<<"Mosaic for "<< playerName<<std::endl;
-playerBoard->printMosaic();
-//std::cout<<"Current Score " << getScore() <<std::endl<<std::endl;
+    std::cout<<"Mosaic for "<< playerName<<std::endl;
+    playerBoard->printMosaic();
+    //std::cout<<"Current Score " << getScore() <<std::endl<<std::endl;
 }
 
 std::string Player::getName(){
@@ -28,4 +29,12 @@ int Player::getScore(){
 
 PlayerBoard* Player::getPlayerBoard(){
     return playerBoard;
+}
+
+void Player::setFirstPlayerMark(bool set){
+    firstPlayerMark=set;
+}
+
+bool Player::firstPlayer(){
+    return firstPlayerMark;
 }
