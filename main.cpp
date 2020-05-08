@@ -97,10 +97,12 @@ void printMenu(){
 void azulGame(){
     std::string playerName1, playerName2;
     GameEngine* engine = new GameEngine();
-    std::cout << "Enter a name for player 1";
+    std::cout << "Enter a name for player 1" << std::endl << ">";
     std::cin >> playerName1;
-    std::cout << "Enter a name for player 2";
+    std::cout << "Enter a name for player 2" << std::endl << ">";
     std::cin >> playerName2;
+
+    std::cout << std::endl << "Let's Play!" << std::endl << std::endl;
 
     engine->createPlayers(playerName1, playerName2);
     engine->playGame();

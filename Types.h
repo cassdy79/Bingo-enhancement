@@ -21,7 +21,8 @@ typedef char* Empty;
 #define ALL_FACTORES 6
 //default random engine value
 #define RANDOM_ENGINE 10
-
+//maximum number of tiles in the centre factory
+#define CENTRE_FACTORY 16
 
 
 #endif //TYPES_H
