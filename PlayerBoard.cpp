@@ -137,12 +137,10 @@ void PlayerBoard::insertIntoWall(LinkedList* boxLid){
 
 bool PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles) {
     
-
-
     if(checkWall(mosaicLineNumber, factoryTiles)==false){
         int lineSize = mosaicLines[mosaicLineNumber].size();
         bool inserted = false;
-        std::cout<<factoryTiles<<std::endl;
+    
         if ( factoryTiles == 'F'){
 
 
@@ -191,8 +189,6 @@ bool PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char 
     else{
         return false;
     }
-    
-
 }
             
     
@@ -210,6 +206,25 @@ bool PlayerBoard::checkWall(int wallLine, char tile){
             check=true;
         }
     }
+    return check;
+}
+
+bool PlayerBoard::checkLine(int line, char tile){
+    bool check=false;
+
+   // std::cout<<mosaicLines[line][0]<<std::endl;
+    if(mosaicLines[line][0]!='.'){
+        if(mosaicLines[line][0]==tile){
+            check=true;
+        }
+        else{
+            check=false;
+        }
+    }
+    else{
+        check=true;
+    }
+    
     return check;
 }
 

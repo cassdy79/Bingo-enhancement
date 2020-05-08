@@ -69,45 +69,52 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
     bool check=false;
 
     if(checkInput(input, gameBoard, player)){
-
         //breaking down the string into int, char, int
         int factory = (int)input[0]-'0';
         char tile = char(input[1]);
         int line = (int)input[2]-'0';
 
-        //if the selected tile exists in the factory, remove same color tiles from factory
-        int numTiles = gameBoard->takeTile(factory, tile);
-        if(numTiles>0){
-            if(factory==0 && gameBoard->checkCentre()==true){
-                player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), 'F');
-                for(int x=0;x<numTiles;x++){
-                    if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
-                        check=true;
-                        
-                        gameBoard->takeFirstMarker();
-                        player->setFirstPlayerMark(true);
+        //checks if colour exists in the line
+        if(player->getPlayerBoard()->checkLine(line-1, tile)==true){
+
+            //if the selected tile exists in the factory, remove same color tiles from factory
+            int numTiles = gameBoard->takeTile(factory, tile);
+            if(numTiles>0){
+                //If user is taking tiles from centre factory:
+                if(factory==0 && gameBoard->checkCentre()==true){
+                    player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), 'F');
+                    for(int x=0;x<numTiles;x++){
+                        if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
+                            check=true;
+                            
+                            gameBoard->takeFirstMarker();
+                            player->setFirstPlayerMark(true);
+                        }
+                        else{
+                            check=false;
+                            std::cout << "Tile exists in wall" << std::endl;
+                        }
                     }
-                    else{
-                        check=false;
-                        std::cout << "Tile exists in wall" << std::endl;
-                    }
-                }
-            }   
-            else{ 
-                //std::cout <<" Number of "<< tile << " " << numTiles << std::endl; 
-                for(int x=0;x<numTiles;x++){
-                    if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
-                        check=true;
-                    }
-                    else{
-                        check=false;
-                        std::cout << "Tile exists in wall" << std::endl;
+                }   
+                //If user isn't taking tiles from centre factory:
+                else{ 
+                    for(int x=0;x<numTiles;x++){
+                        if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
+                            check=true;
+                        }
+                        else{
+                            check=false;
+                            std::cout << "Tile exists in wall" << std::endl;
+                        }
                     }
                 }
             }
+            else{
+                std::cout << "Tile not found" << std::endl;
+                check=false;
+            }
         }
         else{
-            std::cout << "Tile not found" << std::endl;
             check=false;
         } 
     }

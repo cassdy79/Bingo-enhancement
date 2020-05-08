@@ -27,6 +27,9 @@ class PlayerBoard{
     //checks if a wall line contains the given tile
     bool checkWall(int wallLine, char tile);
 
+    //checks if a line contains the given tile
+    bool checkLine(int line, char tile);
+
     //function to print current status of player board
     void printMosaic();
 
@@ -62,7 +65,7 @@ class PlayerBoard{
     char broken[7];
     
 };
-
+  
 
 
 
