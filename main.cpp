@@ -65,6 +65,7 @@ int main(int argc, char** argv){
             player->getPlayerBoard()->insertIntoLine(2, boxLid, 'Y');
             player->getPlayerBoard()->insertIntoLine(2, boxLid, 'Y');
             player->getPlayerBoard()->insertIntoLine(2, boxLid, 'Y');
+            player->getPlayerBoard()->insertIntoLine(2, boxLid, 'F');
 
 
             std::cout<<"Inserting to player line"<<std::endl;

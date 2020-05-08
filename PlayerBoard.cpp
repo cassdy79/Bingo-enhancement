@@ -136,9 +136,24 @@ void PlayerBoard::insertIntoWall(LinkedList* boxLid){
 }
 
 bool PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles) {
+    
+
+
     if(checkWall(mosaicLineNumber, factoryTiles)==false){
         int lineSize = mosaicLines[mosaicLineNumber].size();
         bool inserted = false;
+
+        if ( factoryTiles == 'F'){
+            for (int i = 0; i < 7 && !inserted; i++) {
+                //looks for earliest index in broken tiles that is empty and fills factory tile.
+                if (broken[i] == ' '){
+                    broken[i] = factoryTiles;
+                    //bool check to break out of loop once inserted
+                    inserted = true;
+
+                }
+            }
+        }
 
         for (int i = 0; i < lineSize && !inserted; i++) {
                 //looks for earliest index that is empty and fills factory tile.
