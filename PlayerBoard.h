@@ -51,6 +51,12 @@ class PlayerBoard{
     //convert player mosaic into string for save game file
     std::string playerMosaicString(int rowIndex);
 
+    //convert player lines into string for save game file
+    std::string playerLineString(int rowIndex);
+
+    //convert broken tiles to a string for the save game file
+    std::string brokenTileString();
+    
   private:
     char r;
     char e;

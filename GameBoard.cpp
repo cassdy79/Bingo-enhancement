@@ -342,3 +342,25 @@ std::string GameBoard::factoryOutput(int factoryIndex){
 
     return returnString;
 }
+
+std::string GameBoard::tileBagString(){
+    int count = 0;
+    std::string tileBagOutput = {};
+    while(count < tileBag->size()){
+        tileBagOutput += tileBag->getValue(count);
+        count++;
+    }
+
+    return tileBagOutput;
+}
+
+std::string GameBoard::boxLidString(){
+    int count = 0;
+    std::string boxLidOutput = {};
+    while(count < boxLid->size()){
+        boxLidOutput += boxLid->getValue(count);
+        count++;
+    }
+
+    return boxLidOutput;
+}

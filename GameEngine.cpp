@@ -177,6 +177,17 @@ void GameEngine::saveGame(){
         saveFile << player2Board->playerMosaicString(i) << "\n";
     }
 
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board->playerLineString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board->playerLineString(i) << "\n";
+    }
 
+    saveFile << player1Board->brokenTileString() << "\n";
+    saveFile << player2Board->brokenTileString() << "\n";
 
+    saveFile << gameBoard->boxLidString() << "\n";
+
+    saveFile << gameBoard->tileBagString() << "\n";
 }

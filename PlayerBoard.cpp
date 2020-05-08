@@ -348,3 +348,22 @@ std::string PlayerBoard::playerMosaicString(int rowIndex){
 
     return mosaicOutput;
 }
+
+std::string PlayerBoard::playerLineString(int rowIndex){
+    std::string lineOutput = {};
+    int vectorSize = mosaicLines[rowIndex].size();
+    for(int i = 0; i < vectorSize; i++){
+        lineOutput += mosaicLines[rowIndex][i];
+    }
+
+    return lineOutput;
+}
+
+std::string PlayerBoard::brokenTileString(){
+    std::string brokenTileOutput = {};
+    for(int i : broken){
+        brokenTileOutput += i;
+    }
+    
+    return brokenTileOutput;
+}

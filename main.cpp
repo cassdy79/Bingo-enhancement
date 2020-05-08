@@ -76,6 +76,12 @@ int main(int argc, char** argv){
 
         }
 
+        else if (userInput == 25) {
+            GameEngine saveTest;
+
+            saveTest.saveGame();
+        }
+
         else {
             std::cout<<"Invalid Input"<<std::endl;
             userInput = 0;
