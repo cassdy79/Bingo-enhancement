@@ -364,3 +364,43 @@ std::string GameBoard::boxLidString(){
 
     return boxLidOutput;
 }
+
+void GameBoard::loadFactory(std::string loadInput, int rowIndex){
+    if(rowIndex == 0){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory0[i] = loadInput[i];
+        }
+    } else if(rowIndex == 1){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory1[i] = loadInput[i];
+        }
+    } else if(rowIndex == 2){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory2[i] = loadInput[i];
+        }
+    } else if(rowIndex == 3){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory3[i] = loadInput[i];
+        }
+    } else if(rowIndex == 4){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory4[i] = loadInput[i];
+        }
+    } else if(rowIndex == 5){
+        for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factory5[i] = loadInput[i];
+        }
+    }
+}
+
+void GameBoard::loadTileBag(std::string loadInput){
+    for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            tileBag->addBack(loadInput[i]);
+    }
+}
+
+void GameBoard::loadBoxLid(std::string loadInput){
+    for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            boxLid->addBack(loadInput[i]);
+    }
+}

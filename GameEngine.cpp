@@ -7,6 +7,8 @@ GameEngine::GameEngine(){
     gameBoard = new GameBoard();
     player1 = new Player("Player 1");
     player2 = new Player("Player 2");
+    player1Turn = true;
+    randomSeed = 0;
 }
 
 GameEngine::~GameEngine(){
@@ -31,34 +33,47 @@ void GameEngine::playGame(){
             //Round start
  
             //Player1's turn
-            std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
-            gameBoard->printFactory();
-            player1->printPlayerBoard();
-            std::string input;
+            if(player1Turn){
+                std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
+                gameBoard->printFactory();
+                player1->printPlayerBoard();
+                std::string input;
 
-            do{
-                //do while input is invalid
-                std::cout << "> turn ";
-                std::cin >> input; 
-
+                do{
+                    //do while input is invalid
+                    std::cout << "> turn ";
+                    std::cin >> input; 
+                    if(input == "save"){
+                        saveGame();
+                        return;
+                    }
+                }
+                while(processInput(input, gameBoard, player1)==false);
+                player1Turn = !player1Turn;
+                std::cout << std::endl;
             }
-            while(processInput(input, gameBoard, player1)==false);
-            std::cout << std::endl;
 
             //Player2's turn
-            std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
-            gameBoard->printFactory();
-            player2->printPlayerBoard();
-            std::string input2;
+            if(!player1Turn){
+                std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
+                gameBoard->printFactory();
+                player2->printPlayerBoard();
+                std::string input2;
 
-            do{
-                //do while input is invalid
-                std::cout << "> turn ";
-                std::cin >> input2; 
-
+                do{
+                    //do while input is invalid
+                    std::cout << "> turn ";
+                    std::cin >> input2; 
+                    if(input2 == "save"){
+                        saveGame();
+                        return;
+                    }
+                }
+                while(processInput(input2, gameBoard, player2)==false);
+                player1Turn = !player1Turn;
+                std::cout << std::endl;   
             }
-            while(processInput(input2, gameBoard, player2)==false);
-            std::cout << std::endl;
+            
         }
         std::cout << "=== END OF ROUND ===" << std::endl;
 }
@@ -153,6 +168,22 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
 
 }
 
+bool GameEngine::returnPlayerTurn(){
+    return player1Turn;
+}
+
+int GameEngine::returnRandomSeed(){
+    return randomSeed;
+}
+
+void GameEngine::loadPlayerTurn(std::string loadInput){
+    player1Turn = std::stoi(loadInput);
+}
+
+void GameEngine::loadRandomSeed(std::string loadInput){
+    randomSeed = std::stoi(loadInput);
+}
+
 void GameEngine::saveGame(){
     std::string saveFileName;
     std::cout << "Please enter the name of your save game\n";
@@ -161,7 +192,7 @@ void GameEngine::saveGame(){
     std::ofstream saveFile;
     saveFile.open(saveFileName + ".txt");
     // need to add player turn indicator
-    saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n";
+    saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
 
     for(int i = 0; i <= 5 ; i++){
         saveFile << gameBoard->factoryOutput(i) << "\n";        
@@ -190,4 +221,74 @@ void GameEngine::saveGame(){
     saveFile << gameBoard->boxLidString() << "\n";
 
     saveFile << gameBoard->tileBagString() << "\n";
+
+    saveFile << randomSeed;
 }
+
+void GameEngine::loadGame(){
+    std::string saveName = {};
+    std::cout << "Please enter the name of your save game (not including .txt): \n";
+    std::cin >> saveName;
+    std::ifstream saveFile(saveName + ".txt");
+
+    std::string parseInput = {};
+
+    std::getline(saveFile, parseInput, '\n');
+    player1->loadPlayerName(parseInput);
+    std::getline(saveFile, parseInput, '\n');
+    player2->loadPlayerName(parseInput);
+
+    std::getline(saveFile, parseInput, '\n');
+    player1->loadPlayerScore(parseInput);
+    std::getline(saveFile, parseInput, '\n');
+    player2->loadPlayerScore(parseInput);
+
+    std::getline(saveFile, parseInput, '\n');
+    loadPlayerTurn(parseInput);
+
+    for(int i = 0; i <= 5; i++){
+        std::getline(saveFile, parseInput, '\n');
+        gameBoard->loadFactory(parseInput, i);
+    }
+
+    PlayerBoard* loadBoard = new PlayerBoard();
+
+    loadBoard = player1->getPlayerBoard();
+    for(int i = 0; i < 5; i++){
+        std::getline(saveFile, parseInput, '\n');
+        loadBoard->loadFactoryWall(parseInput, i);
+    }
+    loadBoard = player2->getPlayerBoard();
+    for(int i = 0; i < 5; i++){
+        std::getline(saveFile, parseInput, '\n');
+        loadBoard->loadFactoryWall(parseInput, i);
+    }
+
+    loadBoard = player1->getPlayerBoard(); 
+    for(int i = 0; i < 5; i++){
+        std::getline(saveFile, parseInput, '\n');
+        loadBoard->loadMosaicLines(parseInput, i);
+    }
+    loadBoard = player2->getPlayerBoard(); 
+    for(int i = 0; i < 5; i++){
+        std::getline(saveFile, parseInput, '\n');
+        loadBoard->loadMosaicLines(parseInput, i);
+    }
+
+    loadBoard = player1->getPlayerBoard();
+    std::getline(saveFile, parseInput, '\n');
+    loadBoard->loadBrokenTiles(parseInput);
+
+    loadBoard = player2->getPlayerBoard();
+    std::getline(saveFile, parseInput, '\n');
+    loadBoard->loadBrokenTiles(parseInput);
+
+    std::getline(saveFile, parseInput, '\n');
+    gameBoard->loadBoxLid(parseInput);
+    std::getline(saveFile, parseInput, '\n');
+    gameBoard->loadTileBag(parseInput);
+
+    std::getline(saveFile, parseInput, '\n');
+    loadRandomSeed(parseInput);
+}
+

@@ -28,8 +28,19 @@ class GameEngine{
     //Returns a winner
     Player* getWinner();
 
+    //returns values for save game functionality
+    bool returnPlayerTurn();
+    int returnRandomSeed();
+
+    //functions for restoring game from save file
+    void loadPlayerTurn(std::string loadInput);
+    void loadRandomSeed(std::string loadInput);
+
     //saves game to text file
     void saveGame();
+
+    //loads game from a text file
+    void loadGame();
 
     private:
     GameBoard* gameBoard;
@@ -37,6 +48,8 @@ class GameEngine{
     LinkedList* tileBag;
     Player* player1;
     Player* player2;
+    int randomSeed;
+    bool player1Turn;
 
 };
 

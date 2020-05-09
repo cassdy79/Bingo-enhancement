@@ -57,6 +57,11 @@ class PlayerBoard{
     //convert broken tiles to a string for the save game file
     std::string brokenTileString();
     
+    //functions for loading data from a save file to restore game state
+    void loadMosaicLines(std::string loadInput, int rowIndex);
+    void loadFactoryWall(std::string loadInput, int rowIndex);
+    void loadBrokenTiles(std::string loadInput);
+
   private:
     char r;
     char e;

@@ -16,6 +16,10 @@ class Player{
         void setFirstPlayerMark(bool set);
         bool firstPlayer();
 
+        //loads data from save into player variables
+        void loadPlayerName(std::string loadInput);
+        void loadPlayerScore(std::string loadInput);
+
     private:
         PlayerBoard* playerBoard;
         int playerScore;

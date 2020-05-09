@@ -39,3 +39,11 @@ void Player::setFirstPlayerMark(bool set){
 bool Player::firstPlayer(){
     return firstPlayerMark;
 }
+
+void Player::loadPlayerName(std::string loadInput){
+    playerName = loadInput;
+}
+
+void Player::loadPlayerScore(std::string loadInput){
+    playerScore = std::stoi(loadInput);
+}

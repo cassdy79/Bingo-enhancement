@@ -62,12 +62,17 @@ class GameBoard{
     //returns boxlid contents as a string to store in the player save
     std::string boxLidString();
 
+    //load game functions, inserts values from save game to restore previous game state
+    void loadFactory(std::string loadInput, int rowIndex);
+    void loadTileBag(std::string loadInput);
+    void loadBoxLid(std::string loadInput);
+
+
     private:
     char factory0[CENTRE_FACTORY], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];
     char factoryTiles[FACTORY_SIZE];
     LinkedList* tileBag;
     LinkedList* boxLid;
-    std::list<char> discardTiles;
     std::string tileOrder;
     int centreSize;
 

@@ -32,8 +32,10 @@ int main(int argc, char** argv){
             azulGame();
 
         } else if (userInput == 2) {
-            //load/save implement
-
+            GameEngine* engine = new GameEngine();
+            engine->loadGame();
+            engine->playGame();
+            
         } else if (userInput == 3) {
             showCredits();
 
@@ -79,6 +81,13 @@ int main(int argc, char** argv){
         else if (userInput == 25) {
             GameEngine saveTest;
 
+            saveTest.saveGame();
+        }
+
+        else if (userInput == 26) {
+            GameEngine saveTest;
+
+            saveTest.loadGame();
             saveTest.saveGame();
         }
 

@@ -367,3 +367,21 @@ std::string PlayerBoard::brokenTileString(){
     
     return brokenTileOutput;
 }
+
+void PlayerBoard::loadMosaicLines(std::string loadInput, int rowIndex){
+    for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            mosaicLines[rowIndex][i] = loadInput[i];
+    }
+}
+
+void PlayerBoard::loadFactoryWall(std::string loadInput, int rowIndex){
+    for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            factoryWall[rowIndex][i] = loadInput[i];
+    }
+}
+
+void PlayerBoard::loadBrokenTiles(std::string loadInput){
+    for(std::string::size_type i = 0; i < loadInput.size(); i++){
+            broken[i] = loadInput[i];
+    }
+}
