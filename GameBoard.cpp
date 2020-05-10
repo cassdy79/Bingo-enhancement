@@ -47,7 +47,32 @@ void GameBoard::fillTileBag(){
 
     //Randomize 5 numbers with each digit represents a colour
     int value = -1;
-    for (int i = 0; i != MAX_TILES; ++i) {
+    int totalCount = 0, rCount = 0, yCount = 0, bCount = 0, lCount = 0, uCount = 0;
+    while(totalCount != MAX_TILES){
+        value = uniform_dist(engine);
+        if(value==1 && rCount != 20){
+            tileBag->addBack('R');
+            rCount++;
+        }
+        else if(value==2 && yCount != 20){
+            tileBag->addBack('Y');
+            yCount++;
+        }
+        else if(value==3 && bCount != 20){
+            tileBag->addBack('B');
+            bCount++;
+        }
+        else if(value==4 && lCount != 20){
+            tileBag->addBack('L');
+            lCount++;
+        }
+        else if(value==5 && uCount != 20){
+            tileBag->addBack('U');
+            uCount++;
+        }
+        totalCount = rCount + yCount + bCount + lCount + uCount;
+    }
+    /*for (int i = 0; i != MAX_TILES; ++i) {
         value = uniform_dist(engine);
         if(value==1){
             tileBag->addBack('R');
@@ -64,7 +89,7 @@ void GameBoard::fillTileBag(){
         else{
             tileBag->addBack('U');
         }
-    }
+    }*/
 }
 
 

@@ -12,7 +12,7 @@ typedef char* FPlayer;
 typedef char* Empty;
 
 //maximum tiles inside tilebag
-#define MAX_TILES 25
+#define MAX_TILES 100
 //number of factores except the centre one
 #define NUM_FACTORIES 5
 //size of a factory
