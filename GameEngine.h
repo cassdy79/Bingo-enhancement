@@ -36,11 +36,13 @@ class GameEngine{
     void loadPlayerTurn(std::string loadInput);
     void loadRandomSeed(std::string loadInput);
 
-    //saves game to text file
+    //save/load game functionality
     void saveGame();
-
-    //loads game from a text file
     void loadGame();
+
+    //function to produce test case output with overloaded function for initial board state
+    void testCase(int turnCounter, std::string playerInput);
+    void testCase();
 
     private:
     GameBoard* gameBoard;
@@ -50,6 +52,7 @@ class GameEngine{
     Player* player2;
     int randomSeed;
     bool player1Turn;
+    bool gameLoaded;
 
 };
 

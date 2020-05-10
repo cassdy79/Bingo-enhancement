@@ -9,6 +9,7 @@ GameEngine::GameEngine(){
     player2 = new Player("Player 2");
     player1Turn = true;
     randomSeed = 0;
+    gameLoaded = false;
 }
 
 GameEngine::~GameEngine(){
@@ -22,16 +23,24 @@ void GameEngine::createPlayers(std::string playerName1, std::string playerName2)
 }
 
 void GameEngine::playGame(){
-    gameBoard->generateTileOrder();
-    gameBoard->fillTileBag();
+    if(!gameLoaded){
+        gameBoard->generateTileOrder();
+        gameBoard->fillTileBag();
+        gameBoard->insertIntoFactory();
+    }
+
+    int turnCounter = 0;
 
         std::cout << "=== Start Round ===" << std::endl;
         //fill up factories
-        gameBoard->insertIntoFactory();
+
+        testCase();
+
         while(gameBoard->factoriesEmpty()==false){
 
             //Round start
- 
+            turnCounter++;
+
             //Player1's turn
             if(player1Turn){
                 std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
@@ -45,10 +54,12 @@ void GameEngine::playGame(){
                     std::cin >> input; 
                     if(input == "save"){
                         saveGame();
+                        gameLoaded = false;
                         return;
                     }
                 }
                 while(processInput(input, gameBoard, player1)==false);
+                testCase(turnCounter, input);
                 player1Turn = !player1Turn;
                 std::cout << std::endl;
             }
@@ -66,10 +77,12 @@ void GameEngine::playGame(){
                     std::cin >> input2; 
                     if(input2 == "save"){
                         saveGame();
+                        gameLoaded = false;
                         return;
                     }
                 }
                 while(processInput(input2, gameBoard, player2)==false);
+                testCase(turnCounter, input2);
                 player1Turn = !player1Turn;
                 std::cout << std::endl;   
             }
@@ -191,7 +204,7 @@ void GameEngine::saveGame(){
 
     std::ofstream saveFile;
     saveFile.open(saveFileName + ".txt");
-    // need to add player turn indicator
+    
     saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
 
     for(int i = 0; i <= 5 ; i++){
@@ -290,5 +303,96 @@ void GameEngine::loadGame(){
 
     std::getline(saveFile, parseInput, '\n');
     loadRandomSeed(parseInput);
+
+    gameLoaded = true;
 }
 
+void GameEngine::testCase(int turnCounter, std::string playerInput){
+
+    std::ofstream saveFile;
+    saveFile.open("TestCase.txt", std::ofstream::app);
+
+    if(player1Turn){
+        saveFile << "Turn " << turnCounter << " Player 1s turn\n";
+    } else if (!player1Turn){
+        saveFile << "Turn " << turnCounter << " Player 2s turn\n";
+    }
+
+    saveFile << "Player Input: " << playerInput << "\n";
+
+    saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
+
+    for(int i = 0; i <= 5 ; i++){
+        saveFile << gameBoard->factoryOutput(i) << "\n";        
+    }
+
+    PlayerBoard* player1Board = player1->getPlayerBoard();
+    PlayerBoard* player2Board = player2->getPlayerBoard();
+
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board->playerMosaicString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board->playerMosaicString(i) << "\n";
+    }
+
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board->playerLineString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board->playerLineString(i) << "\n";
+    }
+
+    saveFile << player1Board->brokenTileString() << "\n";
+    saveFile << player2Board->brokenTileString() << "\n";
+
+    saveFile << gameBoard->boxLidString() << "\n";
+
+    saveFile << gameBoard->tileBagString() << "\n";
+
+    saveFile << randomSeed << "\n";
+
+    saveFile << "======================\n";
+}
+
+void GameEngine::testCase(){
+
+    std::ofstream saveFile;
+    saveFile.open("TestCase.txt", std::ofstream::app);
+
+    saveFile << "Initial board state: \n";
+
+    saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
+
+    for(int i = 0; i <= 5 ; i++){
+        saveFile << gameBoard->factoryOutput(i) << "\n";        
+    }
+
+    PlayerBoard* player1Board = player1->getPlayerBoard();
+    PlayerBoard* player2Board = player2->getPlayerBoard();
+
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board->playerMosaicString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board->playerMosaicString(i) << "\n";
+    }
+
+    for(int i = 0; i < 5; i++){
+        saveFile << player1Board->playerLineString(i) << "\n";
+    }
+    for(int i = 0; i < 5; i++){
+        saveFile << player2Board->playerLineString(i) << "\n";
+    }
+
+    saveFile << player1Board->brokenTileString() << "\n";
+    saveFile << player2Board->brokenTileString() << "\n";
+
+    saveFile << gameBoard->boxLidString() << "\n";
+
+    saveFile << gameBoard->tileBagString() << "\n";
+
+    saveFile << randomSeed << "\n";
+
+    saveFile << "======================\n";
+}
