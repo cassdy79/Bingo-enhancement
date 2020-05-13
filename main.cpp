@@ -121,6 +121,7 @@ void azulGame(){
     std::cout << std::endl << "Let's Play!" << std::endl << std::endl;
 
     engine->createPlayers(playerName1, playerName2);
+    std::cin.ignore(100000, '\n');
     engine->playGame();
 }
 
