@@ -27,7 +27,7 @@ int main(int argc, char** argv){
         printMenu();
 
         std::cin >> userInput;
-
+   
         if (userInput == 1) {
             azulGame();
 

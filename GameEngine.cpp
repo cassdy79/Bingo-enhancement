@@ -43,15 +43,15 @@ void GameEngine::playGame(){
 
             //Player1's turn
             if(player1Turn){
+
                 std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
                 gameBoard->printFactory();
                 player1->printPlayerBoard();
                 std::string input;
-
                 do{
                     //do while input is invalid
                     std::cout << "> turn ";
-                    std::cin >> input; 
+                    std::getline(std::cin, input); 
                     if(input == "save"){
                         saveGame();
                         gameLoaded = false;
@@ -66,15 +66,16 @@ void GameEngine::playGame(){
 
             //Player2's turn
             if(!player1Turn){
+
                 std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
                 gameBoard->printFactory();
                 player2->printPlayerBoard();
                 std::string input2;
-
+               
                 do{
                     //do while input is invalid
                     std::cout << "> turn ";
-                    std::cin >> input2; 
+                    std::getline(std::cin, input2); 
                     if(input2 == "save"){
                         saveGame();
                         gameLoaded = false;
@@ -95,12 +96,11 @@ void GameEngine::playGame(){
 
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
     bool check=false;
-
     if(checkInput(input, gameBoard, player)){
         //breaking down the string into int, char, int
         int factory = (int)input[0]-'0';
-        char tile = char(input[1]);
-        int line = (int)input[2]-'0';
+        char tile = char(input[2]);
+        int line = (int)input[4]-'0';
 
         //checks if colour exists in the line
         if(player->getPlayerBoard()->checkLine(line-1, tile)==true){
@@ -150,7 +150,7 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
         check=false;
     }
     if(check==false){
-        std::cout << "Invalid input" << std::endl;
+        std::cout << "Invalid Input" << std::endl;
         return false;
     }
     else{
@@ -163,8 +163,8 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
 bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* player){
     //check if input string is valid (1-5, RYBLUF, and 1-5)
     if(input[0]=='0' || input[0]=='1' || input[0]=='2' || input[0]=='3' || input[0]=='4' || input[0]=='5'){
-        if(input[1]=='R' || input[1]=='Y' || input[1]=='B' || input[1]=='L' || input[1]=='U'){
-            if(input[0]=='0' || input[2]=='1' || input[2]=='2' || input[2]=='3' || input[2]=='4' || input[2]=='5'){
+        if(input[2]=='R' || input[2]=='Y' || input[2]=='B' || input[2]=='L' || input[2]=='U'){
+            if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'){
                 return true;
             }
             else{
@@ -178,7 +178,6 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
     else{
         return false;
     }
-
 }
 
 bool GameEngine::returnPlayerTurn(){
