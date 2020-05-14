@@ -33,12 +33,12 @@ class GameEngine{
     int returnRandomSeed();
 
     //functions for restoring game from save file
-    void loadPlayerTurn(std::string loadInput);
-    void loadRandomSeed(std::string loadInput);
+    bool loadPlayerTurn(std::string loadInput);
+    bool loadRandomSeed(std::string loadInput);
 
     //save/load game functionality
-    void saveGame();
-    void loadGame();
+    void saveGame(std::string saveName);
+    bool loadGame();
 
     //function to produce test case output with overloaded function for initial board state
     void testCase(int turnCounter, std::string playerInput);

@@ -58,9 +58,9 @@ class PlayerBoard{
     std::string brokenTileString();
     
     //functions for loading data from a save file to restore game state
-    void loadMosaicLines(std::string loadInput, int rowIndex);
-    void loadFactoryWall(std::string loadInput, int rowIndex);
-    void loadBrokenTiles(std::string loadInput);
+    bool loadMosaicLines(std::string loadInput, int rowIndex);
+    bool loadFactoryWall(std::string loadInput, int rowIndex);
+    bool loadBrokenTiles(std::string loadInput);
 
   private:
     char r;

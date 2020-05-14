@@ -21,7 +21,8 @@ void azulGame(GameEngine* engine);
 int main(int argc, char** argv){
     int userInput = 0 ;
     int randomSeed = 0;
-        std::cout << 
+    
+    std::cout << 
     "Welcome to Azul! \n" <<
     "-------------------\n \n"; 
 
@@ -52,9 +53,10 @@ int main(int argc, char** argv){
             azulGame(engine);
 
         } else if (userInput == 2) {
-            engine->loadGame();
-            engine->playGame();
-            
+            if(engine->loadGame()){
+                engine->playGame();
+            }
+
         } else if (userInput == 3) {
             showCredits();
 
@@ -128,7 +130,7 @@ int main(int argc, char** argv){
 
 void printMenu(){
     std::cout << 
-    "Menu \n" <<
+    "\nMenu \n" <<
     "---- \n" <<
     "1. New Game \n" <<
     "2. Load Game \n" <<

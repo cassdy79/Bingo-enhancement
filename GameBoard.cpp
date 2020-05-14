@@ -390,44 +390,91 @@ std::string GameBoard::boxLidString(){
     return boxLidOutput;
 }
 
-void GameBoard::loadFactory(std::string loadInput, int rowIndex){
+bool GameBoard::loadFactory(std::string loadInput, int rowIndex){
     if(rowIndex == 0){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
             factory0[i] = loadInput[i];
+            if(factory0[i] == 'R' || factory0[i] == 'B' || factory0[i] == 'L' || factory0[i] == 'Y' || factory0[i] == 'U' || factory0[i] == ' ' || factory0[i] == '.' || factory0[i] == 'F'){
+                factory0[i] = loadInput[i];
+            } else {
+                std::cout << i << " Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     } else if(rowIndex == 1){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            factory1[i] = loadInput[i];
+            if(loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == ' ' || loadInput[i] == '.'){
+                factory1[i] = loadInput[i];
+            } else {
+                std::cout << "Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     } else if(rowIndex == 2){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            factory2[i] = loadInput[i];
+            if(loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == ' ' || loadInput[i] == '.'){
+                factory2[i] = loadInput[i];
+            } else {
+                std::cout << "Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     } else if(rowIndex == 3){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            factory3[i] = loadInput[i];
+            if(loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == ' ' || loadInput[i] == '.'){
+                factory3[i] = loadInput[i];
+            } else {
+                std::cout << "Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     } else if(rowIndex == 4){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            factory4[i] = loadInput[i];
+            if(loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == ' ' || loadInput[i] == '.'){
+                factory4[i] = loadInput[i];
+            } else {
+                std::cout << "Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     } else if(rowIndex == 5){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            factory5[i] = loadInput[i];
+            if(loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == ' ' || loadInput[i] == '.'){
+                factory5[i] = loadInput[i];
+            } else {
+                std::cout << "Factory data invalid, cancelling load.";
+                return false;
+            }
         }
     }
+
+    return true;
 }
 
-void GameBoard::loadTileBag(std::string loadInput){
+bool GameBoard::loadTileBag(std::string loadInput){
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
+        if((loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U')){
             tileBag->addBack(loadInput[i]);
+        } else {
+            std::cout << "Tile bag data invalid, cancelling load.";
+            return false;
+        }
     }
+
+    return true;
 }
 
-void GameBoard::loadBoxLid(std::string loadInput){
+bool GameBoard::loadBoxLid(std::string loadInput){
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
+        if((loadInput[i] == 'R' || loadInput[i] == 'B' || loadInput[i] == 'L' || loadInput[i] == 'Y' || loadInput[i] == 'U')){
             boxLid->addBack(loadInput[i]);
+        } else {
+            std::cout << "Box lid data invalid, cancelling load.";
+            return false;
+        }
     }
+
+    return true;
 }
 
 void GameBoard::fillTileBagFromBoxLid(){

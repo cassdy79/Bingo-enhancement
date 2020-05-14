@@ -40,10 +40,21 @@ bool Player::firstPlayer(){
     return firstPlayerMark;
 }
 
-void Player::loadPlayerName(std::string loadInput){
+bool Player::loadPlayerName(std::string loadInput){
+    if(loadInput == ""){
+        std::cout << "Player name data invalid, cancelling load.";
+        return false;
+    }
     playerName = loadInput;
+    return true;
 }
 
-void Player::loadPlayerScore(std::string loadInput){
-    playerScore = std::stoi(loadInput);
+bool Player::loadPlayerScore(std::string loadInput){
+    try{
+        playerScore = std::stoi(loadInput);
+    } catch (const std::exception& e){
+        std::cout << "Player score data invalid, cancelling load.";
+        return false;
+    }
+    return true;
 }

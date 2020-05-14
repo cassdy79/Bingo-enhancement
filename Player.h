@@ -17,8 +17,8 @@ class Player{
         bool firstPlayer();
 
         //loads data from save into player variables
-        void loadPlayerName(std::string loadInput);
-        void loadPlayerScore(std::string loadInput);
+        bool loadPlayerName(std::string loadInput);
+        bool loadPlayerScore(std::string loadInput);
 
     private:
         PlayerBoard* playerBoard;

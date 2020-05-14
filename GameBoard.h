@@ -66,9 +66,9 @@ class GameBoard{
     void printTileBag();
 
     //load game functions, inserts values from save game to restore previous game state
-    void loadFactory(std::string loadInput, int rowIndex);
-    void loadTileBag(std::string loadInput);
-    void loadBoxLid(std::string loadInput);
+    bool loadFactory(std::string loadInput, int rowIndex);
+    bool loadTileBag(std::string loadInput);
+    bool loadBoxLid(std::string loadInput);
 
 
     private:

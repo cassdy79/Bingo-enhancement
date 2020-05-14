@@ -368,20 +368,50 @@ std::string PlayerBoard::brokenTileString(){
     return brokenTileOutput;
 }
 
-void PlayerBoard::loadMosaicLines(std::string loadInput, int rowIndex){
+bool PlayerBoard::loadMosaicLines(std::string loadInput, int rowIndex){
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
-            mosaicLines[rowIndex][i] = loadInput[i];
+        if(loadInput[i] == 'R' || loadInput[i] == 'Y' || loadInput[i] == 'B' || loadInput[i] == 'U' || loadInput[i] == 'L' || loadInput[i] == '.'){
+            if(loadInput[i] == loadInput[0] || loadInput[i] == '.'){
+                mosaicLines[rowIndex][i] = loadInput[i];
+            } else {
+                std::cout << "Player line data invalid, cancelling load.";
+                return false;
+            }
+        } else {
+            std::cout << "Player line data invalid, cancelling load.";
+            return false;
+        }
     }
+    return true;
 }
 
-void PlayerBoard::loadFactoryWall(std::string loadInput, int rowIndex){
+bool PlayerBoard::loadFactoryWall(std::string loadInput, int rowIndex){
+    if(loadInput.size() != 5){
+        std::cout << "Player wall data invalid, cancelling load.";
+        return false;
+    }
+
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
+        if(std::toupper(loadInput[i]) == 'R' || std::toupper(loadInput[i]) == 'Y' || std::toupper(loadInput[i]) == 'B' || std::toupper(loadInput[i]) == 'L' || std::toupper(loadInput[i]) == 'U'){
             factoryWall[rowIndex][i] = loadInput[i];
+        } else {
+            std::cout << "Player wall data invalid, cancelling load.";
+            return false;
+        }
     }
+
+    return true;
 }
 
-void PlayerBoard::loadBrokenTiles(std::string loadInput){
+bool PlayerBoard::loadBrokenTiles(std::string loadInput){
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
+        if(loadInput[i] == 'B' || loadInput[i] == 'Y' || loadInput[i] == 'U' || loadInput[i] == 'L' || loadInput[i] == 'R' || loadInput[i] == 'F' || loadInput[i] == ' '){
             broken[i] = loadInput[i];
+        } else {
+            std::cout << "Broken tile data invalid, cancelling load.";
+            return false;
+        }
     }
+
+    return true;
 }

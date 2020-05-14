@@ -53,10 +53,15 @@ void GameEngine::playGame(){
                     //do while input is invalid
                     std::cout << "> turn ";
                     std::getline(std::cin, input); 
-                    if(input == "save"){
-                        saveGame();
-                        gameLoaded = false;
-                        return;
+                    if(input.find("save") == 0){
+                        try{
+                            input = input.substr(5);
+                            saveGame(input);
+                            gameLoaded = false;
+                            return;
+                        } catch(const std::exception& e){
+                            std::cout << "Invalid save name\n";
+                        }
                     }
                 }
                 while(processInput(input, gameBoard, player1)==false);
@@ -77,10 +82,15 @@ void GameEngine::playGame(){
                     //do while input is invalid
                     std::cout << "> turn ";
                     std::getline(std::cin, input2); 
-                    if(input2 == "save"){
-                        saveGame();
-                        gameLoaded = false;
-                        return;
+                    if(input2.find("save") == 0){
+                        try{
+                            input2 = input2.substr(5);
+                            saveGame(input2);
+                            gameLoaded = false;
+                            return;
+                        } catch(const std::exception& e){
+                            std::cout << "Invalid save name\n";
+                        }
                     }
                 }
                 while(processInput(input2, gameBoard, player2)==false);
@@ -186,21 +196,39 @@ int GameEngine::returnRandomSeed(){
     return randomSeed;
 }
 
-void GameEngine::loadPlayerTurn(std::string loadInput){
-    player1Turn = std::stoi(loadInput);
+bool GameEngine::loadPlayerTurn(std::string loadInput){
+    int testInput;
+    try{
+        testInput = std::stoi(loadInput);
+    } catch (const std::exception& e) {
+        std::cout << "Player turn data invalid, cancelling load.";
+        return false;
+    }
+
+    if( testInput == 0 || testInput == 1){
+        player1Turn = testInput;
+        return true;
+    }
+
+    std::cout << "Player turn data invalid, cancelling load.";
+    return false;
 }
 
-void GameEngine::loadRandomSeed(std::string loadInput){
-    randomSeed = std::stoi(loadInput);
+bool GameEngine::loadRandomSeed(std::string loadInput){
+    try{
+        randomSeed = std::stoi(loadInput);
+    } catch (const std::exception& e) {
+        std::cout << "Random seed data invalid, cancelling load.";
+        return false;
+    }
+    
+    return true;
 }
 
-void GameEngine::saveGame(){
-    std::string saveFileName;
-    std::cout << "Please enter the name of your save game\n";
-    std::cin >> saveFileName;
-
+void GameEngine::saveGame(std::string saveName){
+    
     std::ofstream saveFile;
-    saveFile.open(saveFileName + ".txt");
+    saveFile.open(saveName + ".txt");
     
     saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
 
@@ -233,32 +261,42 @@ void GameEngine::saveGame(){
     saveFile << gameBoard->tileBagString() << "\n";
 
     saveFile << randomSeed;
+
+    std::cin.ignore(100000, '\n');
+
+    std::cout << "Game saved to " << saveName << ".txt\n";
 }
 
-void GameEngine::loadGame(){
+bool GameEngine::loadGame(){
     std::string saveName = {};
     std::cout << "Please enter the name of your save game (not including .txt): \n";
     std::cin >> saveName;
     std::ifstream saveFile(saveName + ".txt");
 
+    if(!saveFile){
+        std::cout << "Save file does not exist. Returning to main menu.\n";
+        return false;
+    }
+
     std::string parseInput = {};
 
     std::getline(saveFile, parseInput, '\n');
-    player1->loadPlayerName(parseInput);
+    if(!player1->loadPlayerName(parseInput)){ return false; }
     std::getline(saveFile, parseInput, '\n');
-    player2->loadPlayerName(parseInput);
+    if(!player2->loadPlayerName(parseInput)){ return false; }
 
     std::getline(saveFile, parseInput, '\n');
-    player1->loadPlayerScore(parseInput);
+    if(!player1->loadPlayerScore(parseInput)){ return false; }    
     std::getline(saveFile, parseInput, '\n');
-    player2->loadPlayerScore(parseInput);
+    if(!player2->loadPlayerScore(parseInput)){ return false; } 
 
     std::getline(saveFile, parseInput, '\n');
-    loadPlayerTurn(parseInput);
+    if(!loadPlayerTurn(parseInput)){ return false; }
+    
 
     for(int i = 0; i <= 5; i++){
         std::getline(saveFile, parseInput, '\n');
-        gameBoard->loadFactory(parseInput, i);
+        if(!gameBoard->loadFactory(parseInput, i)){ return false; }
     }
 
     PlayerBoard* loadBoard = new PlayerBoard();
@@ -266,42 +304,44 @@ void GameEngine::loadGame(){
     loadBoard = player1->getPlayerBoard();
     for(int i = 0; i < 5; i++){
         std::getline(saveFile, parseInput, '\n');
-        loadBoard->loadFactoryWall(parseInput, i);
+        if(!loadBoard->loadFactoryWall(parseInput, i)){ return false; }
     }
     loadBoard = player2->getPlayerBoard();
     for(int i = 0; i < 5; i++){
         std::getline(saveFile, parseInput, '\n');
-        loadBoard->loadFactoryWall(parseInput, i);
+        if(!loadBoard->loadFactoryWall(parseInput, i)){ return false; }
     }
 
     loadBoard = player1->getPlayerBoard(); 
     for(int i = 0; i < 5; i++){
         std::getline(saveFile, parseInput, '\n');
-        loadBoard->loadMosaicLines(parseInput, i);
+        if(!loadBoard->loadMosaicLines(parseInput, i)){ return false; }
     }
     loadBoard = player2->getPlayerBoard(); 
     for(int i = 0; i < 5; i++){
         std::getline(saveFile, parseInput, '\n');
-        loadBoard->loadMosaicLines(parseInput, i);
+        if(!loadBoard->loadMosaicLines(parseInput, i)){ return false; }
     }
 
     loadBoard = player1->getPlayerBoard();
     std::getline(saveFile, parseInput, '\n');
-    loadBoard->loadBrokenTiles(parseInput);
+    if(!loadBoard->loadBrokenTiles(parseInput)){ return false; }
 
     loadBoard = player2->getPlayerBoard();
     std::getline(saveFile, parseInput, '\n');
-    loadBoard->loadBrokenTiles(parseInput);
+    if(!loadBoard->loadBrokenTiles(parseInput)){ return false; }
 
     std::getline(saveFile, parseInput, '\n');
-    gameBoard->loadBoxLid(parseInput);
+    if(!gameBoard->loadBoxLid(parseInput)){ return false; }
     std::getline(saveFile, parseInput, '\n');
-    gameBoard->loadTileBag(parseInput);
+    if(!gameBoard->loadTileBag(parseInput)){ return false; }
 
     std::getline(saveFile, parseInput, '\n');
-    loadRandomSeed(parseInput);
+    if(!loadRandomSeed(parseInput)){ return false; }
 
     gameLoaded = true;
+    std::cin.ignore(100000, '\n');
+    return true;
 }
 
 void GameEngine::testCase(int turnCounter, std::string playerInput){
