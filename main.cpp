@@ -15,12 +15,12 @@ public:
 
 void printMenu();
 void showCredits();
-void azulGame(std::string randomSeed);
+void azulGame(GameEngine* engine);
 
 
 int main(int argc, char** argv){
     int userInput = 0 ;
-    std::string randomSeed = "0";
+    int randomSeed = 0;
         std::cout << 
     "Welcome to Azul! \n" <<
     "-------------------\n \n"; 
@@ -29,11 +29,19 @@ int main(int argc, char** argv){
         if(std::string(argv[i]) == "-s"){
             if(i + 1 < argc){
                 i++;
-                randomSeed = argv[i];
+                try{
+                    randomSeed = std::stoi(argv[i]);
+                } catch (const std::exception& e) {
+                    std::cout << "Random seed invalid.\n";
+                    randomSeed = 0;
+                }
                 std::cout << "Random seed set as: " << randomSeed << std::endl;
+
             }
         }
     }
+
+    GameEngine* engine = new GameEngine(randomSeed);
 
     while (userInput != 4 ){
         printMenu();
@@ -41,12 +49,11 @@ int main(int argc, char** argv){
         std::cin >> userInput;
    
         if (userInput == 1) {
-            azulGame(randomSeed);
+            azulGame(engine);
 
         } else if (userInput == 2) {
-            GameEngine* engine = new GameEngine();
             engine->loadGame();
-            engine->playGame(randomSeed);
+            engine->playGame();
             
         } else if (userInput == 3) {
             showCredits();
@@ -90,22 +97,9 @@ int main(int argc, char** argv){
 
         }
 
-        else if (userInput == 25) {
-            GameEngine saveTest;
-
-            saveTest.saveGame();
-        }
-
-        else if (userInput == 26) {
-            GameEngine saveTest;
-
-            saveTest.loadGame();
-            saveTest.saveGame();
-        }
-
         else if (userInput == 88) {
             GameBoard* a = new GameBoard();
-            a->fillTileBag('50');
+            a->fillTileBag(50);
             a->getBoxLid()->addBack('R');
             a->getBoxLid()->addBack('L');
             a->getBoxLid()->addBack('Y');
@@ -142,9 +136,8 @@ void printMenu(){
     "4. Quit \n \n";
 }
 
-void azulGame(std::string randomSeed){
+void azulGame(GameEngine* engine){
     std::string playerName1, playerName2;
-    GameEngine* engine = new GameEngine();
     std::cout << "Enter a name for player 1" << std::endl << ">";
     std::cin >> playerName1;
     std::cout << "Enter a name for player 2" << std::endl << ">";
@@ -154,7 +147,7 @@ void azulGame(std::string randomSeed){
 
     engine->createPlayers(playerName1, playerName2);
     std::cin.ignore(100000, '\n');
-    engine->playGame(randomSeed);
+    engine->playGame();
 }
 
 void showCredits(){

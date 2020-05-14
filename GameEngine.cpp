@@ -2,13 +2,13 @@
 #include <fstream>
 #include <iostream>
 
-GameEngine::GameEngine(){
+GameEngine::GameEngine(int seed){
     winner = nullptr;
     gameBoard = new GameBoard();
     player1 = new Player("Player 1");
     player2 = new Player("Player 2");
     player1Turn = true;
-    randomSeed = 0;
+    randomSeed = seed;
     gameLoaded = false;
 }
 
@@ -22,15 +22,8 @@ void GameEngine::createPlayers(std::string playerName1, std::string playerName2)
     player2 = new Player(playerName2);
 }
 
-void GameEngine::playGame(std::string seed){
+void GameEngine::playGame(){
     if(!gameLoaded){
-        try{
-            randomSeed = std::stoi(seed);
-        } catch (const std::exception& e) {
-            std::cout << "Random seed invalid, seed set to 0.\n";
-            randomSeed = 0;
-        }
-
         gameBoard->generateTileOrder(randomSeed);
         gameBoard->fillTileBag(randomSeed);
         gameBoard->insertIntoFactory();

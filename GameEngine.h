@@ -9,11 +9,11 @@
 
 class GameEngine{
     public:
-    GameEngine();
+    GameEngine(int seed);
     ~GameEngine();
 
     //The gameplay method
-    void playGame(std::string seed);
+    void playGame();
 
     //Returns the number of colors found in the factory
     bool processInput(std::string input, GameBoard* gameBoard, Player* player);
