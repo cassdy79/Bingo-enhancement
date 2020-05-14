@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <string.h>
 #include "PlayerBoard.h"
 #include "Player.h"
 #include "GameBoard.h"
@@ -14,14 +15,25 @@ public:
 
 void printMenu();
 void showCredits();
-void azulGame();
+void azulGame(std::string randomSeed);
 
 
 int main(int argc, char** argv){
     int userInput = 0 ;
+    std::string randomSeed = "0";
         std::cout << 
     "Welcome to Azul! \n" <<
     "-------------------\n \n"; 
+
+    for(int i = 0; i < argc; i++){
+        if(std::string(argv[i]) == "-s"){
+            if(i + 1 < argc){
+                i++;
+                randomSeed = argv[i];
+                std::cout << "Random seed set as: " << randomSeed << std::endl;
+            }
+        }
+    }
 
     while (userInput != 4 ){
         printMenu();
@@ -29,12 +41,12 @@ int main(int argc, char** argv){
         std::cin >> userInput;
    
         if (userInput == 1) {
-            azulGame();
+            azulGame(randomSeed);
 
         } else if (userInput == 2) {
             GameEngine* engine = new GameEngine();
             engine->loadGame();
-            engine->playGame();
+            engine->playGame(randomSeed);
             
         } else if (userInput == 3) {
             showCredits();
@@ -93,7 +105,7 @@ int main(int argc, char** argv){
 
         else if (userInput == 88) {
             GameBoard* a = new GameBoard();
-            a->fillTileBag();
+            a->fillTileBag('50');
             a->getBoxLid()->addBack('R');
             a->getBoxLid()->addBack('L');
             a->getBoxLid()->addBack('Y');
@@ -130,7 +142,7 @@ void printMenu(){
     "4. Quit \n \n";
 }
 
-void azulGame(){
+void azulGame(std::string randomSeed){
     std::string playerName1, playerName2;
     GameEngine* engine = new GameEngine();
     std::cout << "Enter a name for player 1" << std::endl << ">";
@@ -142,7 +154,7 @@ void azulGame(){
 
     engine->createPlayers(playerName1, playerName2);
     std::cin.ignore(100000, '\n');
-    engine->playGame();
+    engine->playGame(randomSeed);
 }
 
 void showCredits(){

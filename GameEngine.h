@@ -13,7 +13,7 @@ class GameEngine{
     ~GameEngine();
 
     //The gameplay method
-    void playGame();
+    void playGame(std::string seed);
 
     //Returns the number of colors found in the factory
     bool processInput(std::string input, GameBoard* gameBoard, Player* player);

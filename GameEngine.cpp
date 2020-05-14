@@ -22,12 +22,20 @@ void GameEngine::createPlayers(std::string playerName1, std::string playerName2)
     player2 = new Player(playerName2);
 }
 
-void GameEngine::playGame(){
+void GameEngine::playGame(std::string seed){
     if(!gameLoaded){
-        gameBoard->generateTileOrder();
-        gameBoard->fillTileBag();
+        try{
+            randomSeed = std::stoi(seed);
+        } catch (const std::exception& e) {
+            std::cout << "Random seed invalid, seed set to 0.\n";
+            randomSeed = 0;
+        }
+
+        gameBoard->generateTileOrder(randomSeed);
+        gameBoard->fillTileBag(randomSeed);
         gameBoard->insertIntoFactory();
     }
+
 
     int turnCounter = 0;
 

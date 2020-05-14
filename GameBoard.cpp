@@ -37,12 +37,12 @@ char* GameBoard::retrieveFactory(int factoryNumber){
     }
 }
 
-void GameBoard::fillTileBag(){
+void GameBoard::fillTileBag(int randomSeed){
     int min = 1;
     int max = 5;
 
     //std::random_device engine;
-    std::default_random_engine engine(RANDOM_ENGINE);
+    std::default_random_engine engine(randomSeed);
     std::uniform_int_distribution<int> uniform_dist(min, max);
 
     //Randomize 5 numbers with each digit represents a colour
@@ -132,12 +132,12 @@ void GameBoard::insertIntoFactory(){
     }
 }
 
-void GameBoard::generateTileOrder(){
+void GameBoard::generateTileOrder(int randomSeed){
     int min = 1;
     int max = 5;
 
     //std::random_device engine;
-    std::default_random_engine engine(RANDOM_ENGINE);
+    std::default_random_engine engine(randomSeed);
     std::uniform_int_distribution<int> uniform_dist(min, max);
 
     std::string output = "";

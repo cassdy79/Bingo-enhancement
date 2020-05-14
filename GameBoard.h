@@ -20,10 +20,10 @@ class GameBoard{
     void insertIntoFactory();
 
     //generate a shuffled R,L,Y,B,U into the tileOrder string 
-    void generateTileOrder();
+    void generateTileOrder(int randomSeed);
 
     //fills the tile bag at the beginning of the game
-    void fillTileBag();
+    void fillTileBag(int randomSeed);
 
     //fills up tilebag at the end of a round
     //fills tile bag with tiles from the box lid, may need to randomise tiles but uncertain as assignment spec says to only randomise tiles once
