@@ -27,7 +27,7 @@ class GameBoard{
 
     //fills up tilebag at the end of a round
     //fills tile bag with tiles from the box lid, may need to randomise tiles but uncertain as assignment spec says to only randomise tiles once
-    void fillTileBag(LinkedList* boxLid);
+    void fillTileBagFromBoxLid();
 
     //prints out the factories
     void printFactory();
@@ -61,6 +61,9 @@ class GameBoard{
 
     //returns boxlid contents as a string to store in the player save
     std::string boxLidString();
+
+    //print tileBag for testing
+    void printTileBag();
 
     //load game functions, inserts values from save game to restore previous game state
     void loadFactory(std::string loadInput, int rowIndex);

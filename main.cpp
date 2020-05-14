@@ -91,6 +91,26 @@ int main(int argc, char** argv){
             saveTest.saveGame();
         }
 
+        else if (userInput == 88) {
+            GameBoard* a = new GameBoard();
+            a->fillTileBag();
+            a->getBoxLid()->addBack('R');
+            a->getBoxLid()->addBack('L');
+            a->getBoxLid()->addBack('Y');
+            a->getBoxLid()->addBack('Y');
+            a->printTileBag();
+            std::cout<<"0: "<<a->getBoxLid()->getValue(0)<<std::endl;
+            std::cout<<"1: "<<a->getBoxLid()->getValue(1)<<std::endl;
+            std::cout<<"2: "<<a->getBoxLid()->getValue(2)<<std::endl;
+            std::cout<<"boxlid size: "<<a->getBoxLid()->size()<<std::endl;
+
+            std::cout<<"after refilling:"<<std::endl;
+             
+            a->fillTileBagFromBoxLid();
+            a->printTileBag();
+            std::cout<<"boxlid size: "<<a->getBoxLid()->size()<<std::endl;
+        }
+
         else {
             std::cout<<"Invalid Input"<<std::endl;
             userInput = 0;

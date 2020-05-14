@@ -90,9 +90,8 @@ void GameEngine::playGame(){
             
         }
         std::cout << "=== END OF ROUND ===" << std::endl;
+        gameBoard->fillTileBagFromBoxLid();
 }
-
-
 
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
     bool check=false;
@@ -157,8 +156,6 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
         return true;
     }
 }
-
-
 
 bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* player){
     //check if input string is valid (1-5, RYBLUF, and 1-5)

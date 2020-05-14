@@ -429,3 +429,17 @@ void GameBoard::loadBoxLid(std::string loadInput){
             boxLid->addBack(loadInput[i]);
     }
 }
+
+void GameBoard::fillTileBagFromBoxLid(){
+    int size = boxLid->size();
+    for(int i=0;i<size;i++){     
+        tileBag->addBack(boxLid->getValue(0));
+        boxLid->removeFront();
+    }
+}
+
+void GameBoard::printTileBag(){
+    for(int i=0;i<tileBag->size();i++){
+        std::cout<<tileBag->getValue(i)<<std::endl;
+    }
+}
