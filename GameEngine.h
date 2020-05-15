@@ -28,6 +28,12 @@ class GameEngine{
     //Returns a winner
     Player* getWinner();
 
+    //end of round processing
+    void endRound(Player* player1, Player* player2);
+
+    //end of game processing
+    void endGameScore(Player* player1, Player* player2);
+
     //returns values for save game functionality
     bool returnPlayerTurn();
     int returnRandomSeed();
@@ -43,6 +49,11 @@ class GameEngine{
     //function to produce test case output with overloaded function for initial board state
     void testCase(int turnCounter, std::string playerInput);
     void testCase();
+
+    //checks if game ended
+    bool checkEndGame(Player* player1, Player* player2);
+
+
 
     private:
     GameBoard* gameBoard;

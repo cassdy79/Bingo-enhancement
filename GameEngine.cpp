@@ -29,79 +29,124 @@ void GameEngine::playGame(){
         gameBoard->insertIntoFactory();
     }
 
-
     int turnCounter = 0;
+    bool endGame = false;
 
-        std::cout << "=== Start Round ===" << std::endl;
         //fill up factories
 
         testCase();
 
-        while(gameBoard->factoriesEmpty()==false){
+        while(endGame == false){
 
-            //Round start
-            turnCounter++;
+        std::cout << "=== Start Round ===" << std::endl;
 
-            //Player1's turn
-            if(player1Turn){
+            while(gameBoard->factoriesEmpty()==false){
 
-                std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
-                gameBoard->printFactory();
-                player1->printPlayerBoard();
-                std::string input;
-                do{
-                    //do while input is invalid
-                    std::cout << "> turn ";
-                    std::getline(std::cin, input); 
-                    if(input.find("save") == 0){
-                        try{
-                            input = input.substr(5);
-                            saveGame(input);
-                            gameLoaded = false;
-                            return;
-                        } catch(const std::exception& e){
-                            std::cout << "Invalid save name\n";
+                //Round start
+                turnCounter++;
+
+                //Player1's turn
+                
+                if(player1Turn && gameBoard->factoriesEmpty()==false){
+
+                    std::cout << "TURN FOR PLAYER: " << player1->getName() << std::endl;
+                    gameBoard->printFactory();
+                    player1->printPlayerBoard();
+                    std::string input;
+                    do{
+                        //do while input is invalid
+                        std::cout << "> turn ";
+                        std::getline(std::cin, input); 
+                        if(input.find("save") == 0){
+                            try{
+                                input = input.substr(5);
+                                saveGame(input);
+                                gameLoaded = false;
+                                return;
+                            } catch(const std::exception& e){
+                                std::cout << "Invalid save name\n";
+                            }
                         }
                     }
+                    while(processInput(input, gameBoard, player1)==false);
+                    testCase(turnCounter, input);
+                    player1Turn = !player1Turn;
+                    std::cout << std::endl;
+
                 }
-                while(processInput(input, gameBoard, player1)==false);
-                testCase(turnCounter, input);
-                player1Turn = !player1Turn;
-                std::cout << std::endl;
-            }
 
-            //Player2's turn
-            if(!player1Turn){
+                //Player2's turn
+                if(!player1Turn && gameBoard->factoriesEmpty()==false){
 
-                std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
-                gameBoard->printFactory();
-                player2->printPlayerBoard();
-                std::string input2;
-               
-                do{
-                    //do while input is invalid
-                    std::cout << "> turn ";
-                    std::getline(std::cin, input2); 
-                    if(input2.find("save") == 0){
-                        try{
-                            input2 = input2.substr(5);
-                            saveGame(input2);
-                            gameLoaded = false;
-                            return;
-                        } catch(const std::exception& e){
-                            std::cout << "Invalid save name\n";
+                    std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
+                    gameBoard->printFactory();
+                    player2->printPlayerBoard();
+                    std::string input2;
+                
+                    do{
+                        //do while input is invalid
+                        std::cout << "> turn ";
+                        std::getline(std::cin, input2); 
+                        if(input2.find("save") == 0){
+                            try{
+                                input2 = input2.substr(5);
+                                saveGame(input2);
+                                gameLoaded = false;
+                                return;
+                            } catch(const std::exception& e){
+                                std::cout << "Invalid save name\n";
+                            }
                         }
                     }
+                    while(processInput(input2, gameBoard, player2)==false);
+                    testCase(turnCounter, input2);
+                    player1Turn = !player1Turn;
+                    std::cout << std::endl;   
+                    
                 }
-                while(processInput(input2, gameBoard, player2)==false);
-                testCase(turnCounter, input2);
-                player1Turn = !player1Turn;
-                std::cout << std::endl;   
+                
             }
+            std::cout << "=== END OF ROUND ===" << std::endl;
             
+            //decide which player starts next round
+
+            if(player1->firstPlayer() == true) {
+                player1->setFirstPlayerMark(false);
+                player1Turn = true;
+            } else if(player2->firstPlayer() == true){
+                player2->setFirstPlayerMark(false);
+                player1Turn = false;
+            }
+
+
+            endRound(player1, player2);
+
+
+            gameBoard->fillTileBagFromBoxLid();
+            gameBoard->insertIntoFactory();
+
+            endGame = checkEndGame(player1, player2);
         }
-        std::cout << "=== END OF ROUND ===" << std::endl;
-        gameBoard->fillTileBagFromBoxLid();
+
+
+    std::cout << "=== END OF GAME ===" << std::endl;
+        
+        endGameScore(player1, player2);
+
+        if(player1->getScore() > player2->getScore()){
+        winner = player1;
+
+        } else if (player1->getScore() < player2->getScore()) {
+        winner = player2;
+        }
+
+        if( winner != nullptr){
+            std::cout<< "The winner is "<< winner->getName()<< "."<<std::endl;
+        } else{
+            std::cout<< "It's a draw."<<std::endl;
+        }
+
+
 }
 
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
@@ -172,7 +217,7 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
     //check if input string is valid (1-5, RYBLUF, and 1-5)
     if(input[0]=='0' || input[0]=='1' || input[0]=='2' || input[0]=='3' || input[0]=='4' || input[0]=='5'){
         if(input[2]=='R' || input[2]=='Y' || input[2]=='B' || input[2]=='L' || input[2]=='U'){
-            if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'){
+            if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'|| input[4]=='6'){
                 return true;
             }
             else{
@@ -187,6 +232,58 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
         return false;
     }
 }
+
+bool GameEngine::checkEndGame(Player* player1, Player* player2){
+    bool retValue = false;
+    
+    if(player1->getPlayerBoard()->checkEnd() || player2->getPlayerBoard()->checkEnd()){
+        retValue = true;
+    }
+
+    return retValue;
+}
+
+void GameEngine::endRound(Player* player1, Player* player2){
+
+            player1->getPlayerBoard()->insertIntoWall(gameBoard->getBoxLid());
+            player2->getPlayerBoard()->insertIntoWall(gameBoard->getBoxLid());
+            std::cout<<std::endl;
+            player1->printPlayerBoard();
+            std::cout << "Score for player " << player1->getName()<< " during previous round: ";
+            std::cout << player1->getPlayerBoard()->getScore()<<std::endl;
+            player1->setScore();
+            std::cout << "Total Score for player " << player1->getName()<< " : ";
+            std::cout << player1->getScore()<<std::endl<<std::endl;
+            player2->printPlayerBoard();
+            std::cout << "Score for player " << player2->getName()<< " during previous round: ";
+            std::cout << player2->getPlayerBoard()->getScore()<<std::endl;
+            player2->setScore();
+            std::cout << "Total Score for player " << player2->getName()<< " : ";
+            std::cout << player2->getScore()<<std::endl<<std::endl;
+
+}
+
+void GameEngine::endGameScore(Player* player1, Player* player2) {
+
+            player1->getPlayerBoard()->endScoring();
+            player2->getPlayerBoard()->endScoring();
+            std::cout<<std::endl;
+            player1->printPlayerBoard();
+            std::cout << "Score for player " << player1->getName()<< " after end of game scoring: ";
+            std::cout << player1->getPlayerBoard()->getScore()<<std::endl;
+            player1->setScore();
+            std::cout << "Total Score for player " << player1->getName()<< " : ";
+            std::cout << player1->getScore()<<std::endl<<std::endl;
+            player2->printPlayerBoard();
+            std::cout << "Score for player " << player2->getName()<< " after end of game scoring: ";
+            std::cout << player2->getPlayerBoard()->getScore()<<std::endl;
+            player2->setScore();
+            std::cout << "Total Score for player " << player2->getName()<< " : ";
+            std::cout << player2->getScore()<<std::endl<<std::endl;
+
+}
+
+
 
 bool GameEngine::returnPlayerTurn(){
     return player1Turn;

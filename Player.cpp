@@ -23,9 +23,15 @@ std::string Player::getName(){
     return playerName;
 }
 
+void Player::setScore(){
+    int score = playerBoard->getScore();
+    playerScore += score;
+    playerBoard->clearScore();
+    }
+
 
 int Player::getScore(){
-    return playerBoard->getScore();;
+    return playerScore;
 }
 
 PlayerBoard* Player::getPlayerBoard(){

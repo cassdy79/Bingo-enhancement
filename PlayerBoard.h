@@ -19,7 +19,7 @@ class PlayerBoard{
     void insertIntoWall(LinkedList* boxLid);
 
     //specifies the line to move the tiles into out of the players lines, adds extra tiles to the boxLid
-    bool insertIntoLine(int factoryLineNumber, LinkedList* boxLid, char factoryTiles);
+    bool insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char factoryTiles);
 
     //overloaded function for when pulling from discard tiles as opposed to factory offers
     //void insertIntoLine(int factoryLineNumber, LinkedList* boxLid, std::list<char> discardTiles);
@@ -56,6 +56,16 @@ class PlayerBoard{
 
     //convert broken tiles to a string for the save game file
     std::string brokenTileString();
+
+    //sets score to zero
+    void clearScore();
+
+    //checks for a horizontal line thats full, used to check for endgame.
+    bool checkEnd();
+
+    //calculates end of game scoring
+    void endScoring();
+    void colorScoring(char tile);
     
     //functions for loading data from a save file to restore game state
     bool loadMosaicLines(std::string loadInput, int rowIndex);
