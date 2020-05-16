@@ -217,19 +217,20 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
 bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* player){
     //check if input string is valid (1-5, RYBLUF, and 1-5)
     if(input[0]=='0' || input[0]=='1' || input[0]=='2' || input[0]=='3' || input[0]=='4' || input[0]=='5'){
-        if(input[2]=='R' || input[2]=='Y' || input[2]=='B' || input[2]=='L' || input[2]=='U'){
-            if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'|| input[4]=='6'){
-                return true;
-            }
-            else{
+        if(input[1]==' ' && input[3]==' '){
+            if(input[2]=='R' || input[2]=='Y' || input[2]=='B' || input[2]=='L' || input[2]=='U'){
+                if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'|| input[4]=='6'){
+                    return true;
+                } else{
+                    return false;
+                }
+            } else{
                 return false;
             }
-        }
-        else{
+        } else{
             return false;
         }
-    }
-    else{
+    } else{
         return false;
     }
 }
