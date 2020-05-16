@@ -146,6 +146,7 @@ void GameEngine::playGame(){
             std::cout<< "It's a draw."<<std::endl;
         }
 
+    gameLoaded = false;
 
 }
 
@@ -359,15 +360,14 @@ void GameEngine::saveGame(std::string saveName){
 
     saveFile << randomSeed;
 
-    std::cin.ignore(100000, '\n');
-
     std::cout << "Game saved to " << saveName << ".txt\n";
 }
 
 bool GameEngine::loadGame(){
     std::string saveName = {};
     std::cout << "Please enter the name of your save game (not including .txt): \n";
-    std::cin >> saveName;
+    std::cin.ignore(100000, '\n');
+    std::getline(std::cin, saveName);
     std::ifstream saveFile(saveName + ".txt");
 
     if(!saveFile){
@@ -437,7 +437,6 @@ bool GameEngine::loadGame(){
     if(!loadRandomSeed(parseInput)){ return false; }
 
     gameLoaded = true;
-    std::cin.ignore(100000, '\n');
     return true;
 }
 
