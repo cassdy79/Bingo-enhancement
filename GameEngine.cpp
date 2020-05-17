@@ -142,6 +142,7 @@ void GameEngine::playGame(){
             std::cout<< "It's a draw."<<std::endl;
         }
 
+    saveGame("GameResult");
     gameLoaded = false;
 
 }
