@@ -46,10 +46,6 @@ class GameEngine{
     void saveGame(std::string saveName);
     bool loadGame();
 
-    //function to produce test case output with overloaded function for initial board state
-    void testCase(int turnCounter, std::string playerInput);
-    void testCase();
-
     //checks if game ended
     bool checkEndGame(Player* player1, Player* player2);
 
