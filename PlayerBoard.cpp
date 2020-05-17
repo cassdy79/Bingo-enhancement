@@ -1,4 +1,5 @@
-
+#include <vector>
+#include <algorithm>
 #include "PlayerBoard.h"
 #include "GameBoard.h"
 
@@ -505,8 +506,14 @@ bool PlayerBoard::loadFactoryWall(std::string loadInput, int rowIndex){
         return false;
     }
 
+    std::vector<char> tileOrder{ 'B', 'Y', 'R', 'U', 'L'};
+
+    if(rowIndex != 0){
+        std::rotate(tileOrder.begin(), tileOrder.begin() + (5 - rowIndex), tileOrder.end());
+    }
+
     for(std::string::size_type i = 0; i < loadInput.size(); i++){
-        if(std::toupper(loadInput[i]) == 'R' || std::toupper(loadInput[i]) == 'Y' || std::toupper(loadInput[i]) == 'B' || std::toupper(loadInput[i]) == 'L' || std::toupper(loadInput[i]) == 'U'){
+        if(std::toupper(loadInput[i]) == tileOrder[i] ){
             factoryWall[rowIndex][i] = loadInput[i];
         } else {
             std::cout << "Player wall data invalid, cancelling load.";
