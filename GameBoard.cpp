@@ -327,8 +327,15 @@ bool GameBoard::checkCentre(){
 }
 
 void GameBoard::addIntoCentre(char tile){
-    retrieveFactory(0)[centreSize]=tile;
-    centreSize++;
+    int counter=0;
+    for(int i=0;i<CENTRE_FACTORY;i++){
+        if(counter==0){
+            if(retrieveFactory(0)[i]=='.'){
+                retrieveFactory(0)[i]=tile;
+                counter=1;
+            }
+        }
+    }
 }
 
 LinkedList* GameBoard::getBoxLid(){
