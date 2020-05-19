@@ -29,7 +29,6 @@ void GameEngine::playGame(){
         gameBoard->insertIntoFactory();
     }
 
-    int turnCounter = 0;
     bool endGame = false;
 
         //fill up factories
@@ -41,7 +40,6 @@ void GameEngine::playGame(){
             while(gameBoard->factoriesEmpty()==false){
 
                 //Round start
-                turnCounter++;
 
                 //Player1's turn
                 

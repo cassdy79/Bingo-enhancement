@@ -398,6 +398,18 @@ std::string GameBoard::boxLidString(){
 }
 
 bool GameBoard::loadFactory(std::string loadInput, int rowIndex){
+    if(rowIndex == 0) {
+        if(loadInput.size() > 16){
+            std::cout << "Factory data invalid, cancelling load.";
+            return false;
+        }
+    } else  {
+        if(loadInput.size() > 4){
+            std::cout << "Factory data invalid, cancelling load.";
+            return false;
+        }
+    }
+    
     if(rowIndex == 0){
         for(std::string::size_type i = 0; i < loadInput.size(); i++){
             factory0[i] = loadInput[i];
