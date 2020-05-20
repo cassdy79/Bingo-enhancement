@@ -151,8 +151,14 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
         //breaking down the string into int, char, int
         int factory = (int)input[0]-'0';
         char tile = char(input[2]);
-        int line = (int)input[4]-'0';
+        int line = 0;
+        if(input[4]!='B'){
+        line = (int)input[4]-'0';
+        } else {
+            line = 6;
+        }
 
+        
         //checks if colour exists in the line
         if(player->getPlayerBoard()->checkLine(line-1, tile)==true){
 
@@ -214,7 +220,7 @@ bool GameEngine::checkInput(std::string input, GameBoard* gameBoard, Player* pla
     if(input[0]=='0' || input[0]=='1' || input[0]=='2' || input[0]=='3' || input[0]=='4' || input[0]=='5'){
         if(input[1]==' ' && input[3]==' '){
             if(input[2]=='R' || input[2]=='Y' || input[2]=='B' || input[2]=='L' || input[2]=='U'){
-                if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'|| input[4]=='6'){
+                if(input[4]=='0' || input[4]=='1' || input[4]=='2' || input[4]=='3' || input[4]=='4' || input[4]=='5'|| input[4]=='B'){
                     return true;
                 } else{
                     return false;
