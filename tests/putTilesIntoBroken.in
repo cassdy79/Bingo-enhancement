@@ -4,7 +4,7 @@ b
 1 R 3
 3 Y 3
 4 U 2
-0 Y 6
-0 B 6
+0 Y B
+0 B B
 save putTilesIntoBroken
 4
