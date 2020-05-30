@@ -142,7 +142,6 @@ void GameEngine::playGame(){
 
     saveGame("GameResult");
     gameLoaded = false;
-
 }
 
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
@@ -363,6 +362,7 @@ void GameEngine::saveGame(std::string saveName){
     saveFile << randomSeed;
 
     std::cout << "Game saved to " << saveName << ".txt\n";
+
 }
 
 bool GameEngine::loadGame(){

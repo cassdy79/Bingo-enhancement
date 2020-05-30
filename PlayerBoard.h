@@ -7,6 +7,7 @@
 
 #include "Types.h"
 #include "LinkedList.h"
+#include "Interface.h"
 
 class PlayerBoard{
 
@@ -84,6 +85,7 @@ class PlayerBoard{
     std::vector<std::vector<char>> mosaicLines;
     char factoryWall[5][5];
     char broken[7];
+    Interface* colour;
     
 };
   

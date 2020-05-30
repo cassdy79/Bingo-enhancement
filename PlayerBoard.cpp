@@ -5,6 +5,7 @@
 
 
 PlayerBoard::PlayerBoard(){
+    colour = new Interface();
     score = 0;
     r = 'r';
     e = '.';
@@ -56,7 +57,7 @@ PlayerBoard::PlayerBoard(){
 }
 
 PlayerBoard::~PlayerBoard(){
-
+    delete colour;
 }
 
 void PlayerBoard::findTile(char x, int wall){
@@ -279,19 +280,22 @@ void PlayerBoard::printWall(int x){
     int size = mosaicLines[x].size();
         if (x!=5) {
             for(int i = size-1; i >= 0; --i){
-                std::cout<<" "<<mosaicLines[x][i];
+                std::cout<<" ";
+                colour->printTile(mosaicLines[x][i]);
             }
         
             std::cout<<" ||";
             for(int i = 0; i < 5; ++i){
-                std::cout<<" "<<factoryWall[x][i];
+                std::cout<<" ";
+                colour->printTile(factoryWall[x][i]);
             }
             std::cout<<std::endl;
 
         } else {
 
             for(int i = 0; i < 7; ++i){
-                std::cout<<" "<<broken[i];
+                std::cout<<" ";
+                colour->printTile(broken[i]);
             }
             std::cout<<std::endl;
         }

@@ -6,6 +6,7 @@
 #include <random>
 #include <iostream>
 #include "Types.h"
+#include "Interface.h"
 #include "LinkedList.h"
 
 class GameBoard{
@@ -78,6 +79,7 @@ class GameBoard{
     LinkedList* boxLid;
     std::string tileOrder;
     int centreSize;
+    Interface* test;
 
 };
 

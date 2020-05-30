@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "GameBoard.h"
 #include "GameEngine.h"
+#include "Interface.h"
 
 //for processing file input
 class Args{   

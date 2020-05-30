@@ -11,9 +11,11 @@ GameBoard::GameBoard(){
     tileBag = new LinkedList();
     boxLid = new LinkedList();
     centreSize = 1;
+    test = new Interface();
 }
 
 GameBoard::~GameBoard(){
+
 }
 
 char* GameBoard::retrieveFactory(int factoryNumber){
@@ -202,7 +204,9 @@ void GameBoard::printFactory(){
     for(int j=0; j<CENTRE_FACTORY; j++){
         
         if(retrieveFactory(0)[j]!='.'){
-            std::cout << retrieveFactory(0)[j] << " ";
+            char value = retrieveFactory(0)[j];
+            test->printTile(value);
+            std::cout << " ";
         }
     }
 
@@ -212,7 +216,9 @@ void GameBoard::printFactory(){
         std::cout << i << ": ";
         for(int j=0; j<FACTORY_SIZE; j++){
             if(retrieveFactory(i)[j]!='.'){
-                std::cout << retrieveFactory(i)[j] << " ";
+                char value = retrieveFactory(i)[j];
+                test->printTile(value);
+                std::cout << " ";
             }
         }
         std::cout << std::endl;
