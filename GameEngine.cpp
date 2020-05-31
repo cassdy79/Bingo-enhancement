@@ -146,6 +146,11 @@ void GameEngine::playGame(){
 
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
     bool check=false;
+   if (input == "help"){
+            std::cout<<"helphelp"<<std::endl;
+            return false;
+        }
+
     if(checkInput(input, gameBoard, player)){
         //breaking down the string into int, char, int
         int factory = (int)input[0]-'0';
@@ -162,7 +167,8 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
         if(player->getPlayerBoard()->checkLine(line-1, tile)==true){
 
             //if the selected tile exists in the factory, remove same color tiles from factory
-            int numTiles = gameBoard->takeTile(factory, tile);
+            //int numTiles = gameBoard->takeTile(factory, tile); FIX
+            int numTiles = gameBoard->checkTile(factory, tile);
             if(numTiles>0){
                 //If user is taking tiles from centre factory:
                 if(factory==0 && gameBoard->checkCentre()==true){
@@ -170,7 +176,9 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
                     for(int x=0;x<numTiles;x++){
                         if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
                             check=true;
-                            
+                            //FIX
+                            gameBoard->takeTile(factory,tile);
+
                             gameBoard->takeFirstMarker();
                             player->setFirstPlayerMark(true);
                         }
@@ -185,6 +193,8 @@ bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* p
                     for(int x=0;x<numTiles;x++){
                         if(player->getPlayerBoard()->insertIntoLine(line-1, gameBoard->getBoxLid(), tile)==true){
                             check=true;
+                            //FIX
+                            gameBoard->takeTile(factory,tile);
                         }
                         else{
                             check=false;
@@ -327,7 +337,8 @@ bool GameEngine::loadRandomSeed(std::string loadInput){
 void GameEngine::saveGame(std::string saveName){
     
     std::ofstream saveFile;
-    saveFile.open(saveName + ".txt");
+    saveFile.open("saves/" + saveName + ".txt");
+    //saveFile.open(saveName + ".txt");
     
     saveFile << player1->getName() << "\n" << player2->getName() << "\n" << player1->getScore() << "\n" << player2->getScore() << "\n" << player1Turn << "\n";
 
@@ -370,7 +381,9 @@ bool GameEngine::loadGame(){
     std::cout << "Please enter the name of your save game (not including .txt): \n";
     std::cin.ignore(100000, '\n');
     std::getline(std::cin, saveName);
-    std::ifstream saveFile(saveName + ".txt");
+
+    std::ifstream saveFile("saves/" + saveName + ".txt");
+    //std::ifstream saveFile(saveName + ".txt");
 
     if(!saveFile){
         std::cout << "Save file does not exist. Returning to main menu.\n";

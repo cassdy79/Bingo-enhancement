@@ -20,7 +20,7 @@ void azulGame(GameEngine* engine);
 
 
 int main(int argc, char** argv){
-    int userInput = 0 ;
+    std::string userInput = "default" ;
     int randomSeed = 0;
     
     std::cout << 
@@ -45,28 +45,31 @@ int main(int argc, char** argv){
 
     GameEngine* engine = new GameEngine(randomSeed);
 
-    while (userInput != 4 ){
+    while (userInput != "4" ){
         printMenu();
 
         std::cin >> userInput;
    
-        if (userInput == 1) {
+        if (userInput == "1") {
             azulGame(engine);
 
-        } else if (userInput == 2) {
+        } else if (userInput == "2") {
             if(engine->loadGame()){
                 engine->playGame();
             }
 
-        } else if (userInput == 3) {
+        } else if (userInput == "3") {
             showCredits();
 
-        } else if (userInput == 4) {
+        } else if (userInput == "4") {
             std::cout<<"Thanks for playing"<<std::endl;
+
+        } else if (userInput == "help"){
+            std::cout<<"helphelphelp";
 
         } else {
             std::cout<<"Invalid Input"<<std::endl;
-            userInput = 0;
+            userInput = "default";
         }
     }
     return EXIT_SUCCESS;

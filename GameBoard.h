@@ -71,6 +71,9 @@ class GameBoard{
     bool loadTileBag(std::string loadInput);
     bool loadBoxLid(std::string loadInput);
 
+    //FIX
+    int checkTile(int factoryNo, char tile);
+
 
     private:
     char factory0[CENTRE_FACTORY], factory1[FACTORY_SIZE], factory2[FACTORY_SIZE], factory3[FACTORY_SIZE], factory4[FACTORY_SIZE], factory5[FACTORY_SIZE];

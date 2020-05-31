@@ -22,9 +22,20 @@ void Interface::printTile(char tile){
   } else {
     std::cout << MAGENTA << tile << END;
   }
-
-
-
 }
+  void Interface::help(int state){
+    if(state == 1){
+
+    } else if (state == 2) {
+
+    } else if (state == 3) {
+
+    } else if (state == 4) {
+
+    }
+
+  }
+
+
 
 

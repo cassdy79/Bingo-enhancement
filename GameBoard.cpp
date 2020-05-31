@@ -515,3 +515,24 @@ void GameBoard::printTileBag(){
         std::cout<<tileBag->getValue(i)<<std::endl;
     }
 }
+
+//FIX
+int GameBoard::checkTile(int factoryNo, char tile){
+    int check = 0;
+    if(factoryNo == 0) {
+        for (int i = 0; i<CENTRE_FACTORY; i++) {
+            if (tile ==retrieveFactory(factoryNo)[i]){
+                ++check;
+            }
+        }
+
+    } else {
+        for (int i = 0; i<FACTORY_SIZE; i++) {
+            if (tile ==retrieveFactory(factoryNo)[i]){
+                ++check;
+            }
+        }
+    }
+
+    return check;
+}

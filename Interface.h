@@ -15,7 +15,7 @@ class Interface {
   //print specific tile
   void printTile(char tile);
 
-   
+  void help(int state);
 
 };
 
