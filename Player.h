@@ -6,7 +6,7 @@
 
 class Player{
     public:
-        Player(std::string playerName);
+        Player(std::string playerName, bool bot);
         ~Player();
         int getScore();
         void setScore();
@@ -15,16 +15,19 @@ class Player{
         void printPlayerBoard();
         void setFirstPlayerMark(bool set);
         bool firstPlayer();
+        bool botCheck();
 
         //loads data from save into player variables
         bool loadPlayerName(std::string loadInput);
         bool loadPlayerScore(std::string loadInput);
+        bool loadPlayerBot(std::string loadInput);
 
     private:
         PlayerBoard* playerBoard;
         int playerScore;
         std::string playerName;
         bool firstPlayerMark;
+        bool bot;
 };
 
 #endif // PLAYER_H

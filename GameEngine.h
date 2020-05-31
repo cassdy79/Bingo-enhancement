@@ -2,6 +2,7 @@
 #define GAMEENGINE_H
 
 #include "Types.h"
+#include "Bot.h"
 #include "Player.h"
 #include "PlayerBoard.h"
 #include "GameBoard.h"
@@ -17,13 +18,14 @@ class GameEngine{
 
     //Returns the number of colors found in the factory
     bool processInput(std::string input, GameBoard* gameBoard, Player* player);
+
     
     bool intoMozaic(std::string input, Player* player, int sameColorTiles);
 
     bool checkInput(std::string input, GameBoard* gameBoard, Player* player);
 
     //creates player to store into game engine
-    void createPlayers(std::string playerName1, std::string playerName2);
+    void createPlayers(std::string playerName1, std::string playerName2, bool bot);
 
     //Returns a winner
     Player* getWinner();

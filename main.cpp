@@ -43,9 +43,10 @@ int main(int argc, char** argv){
         }
     }
 
-    GameEngine* engine = new GameEngine(randomSeed);
+
 
     while (userInput != "4" ){
+        GameEngine* engine = new GameEngine(randomSeed);
         printMenu();
 
         std::cin >> userInput;
@@ -87,17 +88,37 @@ void printMenu(){
 }
 
 void azulGame(GameEngine* engine){
-
-    std::cin.ignore(100000, '\n');
+    bool bots = false;
+    std::string response = "default";
     std::string playerName1, playerName2;
-    std::cout << "Enter a name for player 1" << std::endl << ">";
-    std::getline(std::cin, playerName1);
-    std::cout << "Enter a name for player 2" << std::endl << ">";
-    std::getline(std::cin, playerName2);
+
+    std::cout<<"Would you like to play against a Bot? (Y/N)"<<std::endl;
+    
+
+    while(response == "default"){
+        std::cin>>response;
+        if(response == "Y" || response == "y"){
+            bots = true;
+            playerName2 = "Bob the Bot";
+            std::cin.ignore(100000, '\n');
+            std::cout << "Enter a name for player 1" << std::endl << ">";
+            std::getline(std::cin, playerName1);
+        } else if (response == "N" || response == "n") {
+            std::cin.ignore(100000, '\n');
+            std::cout << "Enter a name for player 1" << std::endl << ">";
+            std::getline(std::cin, playerName1);
+            std::cout << "Enter a name for player 2" << std::endl << ">";
+            std::getline(std::cin, playerName2);
+
+        } else {
+        std::cout<<"Invalid input, type Y for Yes or N for No."<<std::endl;
+        response = "default";
+        }
+    }
 
     std::cout << std::endl << "Let's Play!" << std::endl << std::endl;
 
-    engine->createPlayers(playerName1, playerName2);
+    engine->createPlayers(playerName1, playerName2, bots);
     //std::cin.ignore(100000, '\n');
     engine->playGame();
 }

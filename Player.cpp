@@ -1,15 +1,20 @@
 #include "Player.h"
 
-Player::Player(std::string playerName) :
+Player::Player(std::string playerName, bool bot) :
     playerScore(0)
 {
     this->playerName =  playerName;
     playerBoard = new PlayerBoard();
     this->firstPlayerMark = false;
+    this->bot = bot;
 }
 
 Player::~Player(){
     delete playerBoard;
+}
+
+bool Player::botCheck(){
+    return bot;
 }
 
 void Player::printPlayerBoard(){
@@ -61,6 +66,17 @@ bool Player::loadPlayerScore(std::string loadInput){
     } catch (const std::exception& e){
         std::cout << "Player score data invalid, cancelling load.";
         return false;
+    }
+    return true;
+}
+
+bool Player::loadPlayerBot(std::string loadInput){
+    if(loadInput == ""){
+        std::cout << "Player bot invalid, cancelling load.";
+        return false;
+    }
+    if (loadInput =="1"){
+    bot = true;
     }
     return true;
 }
