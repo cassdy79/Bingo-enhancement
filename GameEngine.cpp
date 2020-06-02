@@ -10,6 +10,7 @@ GameEngine::GameEngine(int seed){
     player1Turn = true;
     randomSeed = seed;
     gameLoaded = false;
+    bot1 = nullptr;
 }
 
 GameEngine::~GameEngine(){
@@ -79,6 +80,12 @@ void GameEngine::playGame(){
 
                     if(player2->botCheck()){
                         //BOT INTERFACE
+                        if(bot1!= nullptr){
+                            delete bot1;
+                            bot1 = nullptr;
+                        }
+
+                        bot1 = new Bot(gameBoard, player2->getPlayerBoard());
 
                         std::cout << "TURN FOR " << player2->getName() << std::endl;
                         gameBoard->printFactory();
@@ -87,16 +94,16 @@ void GameEngine::playGame(){
 
                         do{
                         //do while input is invalid
-                        Bot* bot1 = new Bot(gameBoard, player2);
+
                         
                         std::cout << ">Bot performs move : ";
                         botInput = bot1->botScan();
+                        
                         std::cout << botInput;
                         }
                         while(processInput(botInput, gameBoard, player2)==false);
 
-
-                        
+                        bot1->print();
                     } else {
 
                     std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;
@@ -480,3 +487,4 @@ bool GameEngine::loadGame(){
     gameLoaded = true;
     return true;
 }
+

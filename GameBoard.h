@@ -74,6 +74,9 @@ class GameBoard{
 
     //FIX
     int checkTile(int factoryNo, char tile);
+    
+    //move to bot
+    char* getFactory(int i);
 
 
     private:

@@ -536,3 +536,23 @@ int GameBoard::checkTile(int factoryNo, char tile){
 
     return check;
 }
+
+char* GameBoard::getFactory(int i){
+    char* temp = nullptr;
+    int num = i - 11;
+    if(num == 0){
+        temp = factory0;
+    } else if (num == 1){
+        temp = factory1;
+    } else if (num == 2){
+        temp = factory2;
+    } else if (num == 3){
+        temp = factory3;
+    } else if (num == 4){
+        temp = factory4;
+    } else if (num == 5){
+        temp = factory5;
+    }
+
+return temp;
+}

@@ -67,6 +67,9 @@ class PlayerBoard{
     //calculates end of game scoring
     void endScoring();
     void colorScoring(char tile);
+
+    //move to bot
+     char* getBot(int num);
     
     //functions for loading data from a save file to restore game state
     bool loadMosaicLines(std::string loadInput, int rowIndex);

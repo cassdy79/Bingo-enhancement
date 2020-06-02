@@ -3,26 +3,24 @@
 #include <string>
 #include <iostream>
 #include "Player.h"
+#include "PlayerBoard.h"
 #include "GameBoard.h"
 
 class Bot {
 
   public:
     //creates bot with player2's game board
-    Bot(GameBoard* board, Player* player);
+    Bot(GameBoard* gBoard, PlayerBoard* pBoard);
     ~Bot();
 
-    //returns bot gameboard
-   // GameBoard getGameBoard();
-   // Player getPlayer();
 
     //returns botMove
     std::string botScan();
-
+    void print();
 
   private:
-  GameBoard* gameBoard;
-  Player* player;
+    std::vector<std::vector<char>> info;
+    
 };
 
 
