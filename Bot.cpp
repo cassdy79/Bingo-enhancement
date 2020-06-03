@@ -80,3 +80,38 @@ std::cout<<std::endl;
   }
 
 }
+
+char Bot::getRow(int row){
+  return info[row][0];
+}
+
+int Bot::countRow(int row) {
+  int count = 0;
+      if (info[row][i] != '.' ) {
+          ++count;
+    }
+
+  return count;
+}
+
+bool Bot::checkMosaicRow(int row, char tile) {
+  bool check = true;
+  for (int i =0; i<5; i++){
+    if (info[row+5][i] == tile) {
+      check = false;
+    }
+  }
+return check;
+}
+
+bool Bot::canInsert(int row, char tile) {
+  bool check = false;
+
+  if (countRow(row) != row) {
+      if (checkMosaicRow(row, tile)){
+        check = true;
+      } 
+  }
+
+return check;
+}

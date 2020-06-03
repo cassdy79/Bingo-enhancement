@@ -99,7 +99,7 @@ void azulGame(GameEngine* engine){
         std::cin>>response;
         if(response == "Y" || response == "y"){
             bots = true;
-            playerName2 = "Bob the Bot";
+            playerName2 = "Jarvis";
             std::cin.ignore(100000, '\n');
             std::cout << "Enter a name for player 1" << std::endl << ">";
             std::getline(std::cin, playerName1);

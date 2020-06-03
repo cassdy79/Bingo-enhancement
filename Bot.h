@@ -18,6 +18,11 @@ class Bot {
     std::string botScan();
     void print();
 
+    char getRow(int row);
+    int countRow(int row);
+    bool checkMosaicRow(int row, char tile);
+    bool canInsert(int row, char tile);
+
   private:
     std::vector<std::vector<char>> info;
     
