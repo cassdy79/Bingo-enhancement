@@ -27,14 +27,20 @@ class Bot {
     void fillMoves();
     void clearTiles(bool vect);
     void fillTiles(char tile);
+   // int countTile(int index);
     std::string defaultMove();
     std::string calculateMove();
+    int findFocus();
+    int findPerfect(int focus);
 
   private:
     std::vector<std::vector<char>> info;
-    std::vector<std::string> moveset;
-    std::vector<std::string> brokenset;
+    std::vector<std::vector<std::string>> set;
+    //std::vector<std::string> moveset;
+    //std::vector<std::string> brokenset;
     char tiles[5];
+    int lineCount[5];
+    bool minFill;
     
 };
 

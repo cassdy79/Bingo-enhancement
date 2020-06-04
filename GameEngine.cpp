@@ -103,7 +103,7 @@ void GameEngine::playGame(){
                         }
                         while(processInput(botInput, gameBoard, player2)==false);
 
-                        bot1->print();
+                        //bot1->print();
                     } else {
 
                     std::cout << "TURN FOR PLAYER: " << player2->getName() << std::endl;

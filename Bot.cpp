@@ -65,9 +65,10 @@ Bot::~Bot(){
 
 std::string Bot::botScan() {
   clearTiles(true);
+  minFill = false;
   std::string botInput;
   std::string botInput2;
-  fillMoves();
+  
   botInput2 = calculateMove();
   std::cout<<botInput2<<std::endl;
   std::getline(std::cin, botInput); 
@@ -87,16 +88,14 @@ void Bot::print() {
     }
     std::cout<<std::endl;
 
-    size = moveset.size();
-    for (int j = 0; j < size; ++j){
-      std::cout<<moveset[j]<<std::endl;
+    for(int i = 0; i < 6; ++i){
+      size = set[i].size();
+      std::cout<< "Moves for row"<<i<<std::endl;
+      for (int j = 0; j < size; ++j){
+        std::cout<<set[i][j]<<std::endl;
+      }
+      std::cout<<size<<std::endl;
     }
-    std::cout<<size<<std::endl;
-    size = brokenset.size();
-    for (int j = 0; j < size; ++j){
-      std::cout<<brokenset[j]<<std::endl;
-    }
-    std::cout<<size<<std::endl;
 
 }
 
@@ -155,7 +154,7 @@ return check;
 
 void Bot::clearTiles(bool vect) {
   if (vect) {
-    moveset.clear();
+    set.clear();
   }
   else {
     for (int i = 0; i <5; ++i){
@@ -190,9 +189,13 @@ void Bot::fillMoves() {
   char temp = ' ';
   int facRow = 0;
   int size = 0;
+  int total = 0;
   std::string value = "N/A";
+  std::vector<std::vector<std::string>> set2(6);
+  
 
   for(int i = 11; i<17; ++i) {
+     
     size = info[i].size();
     facRow = i-11;
     clearTiles(false);
@@ -213,40 +216,175 @@ void Bot::fillMoves() {
           value += " "; 
           value += temp; 
           value += " "; 
-          if (j == 0) {
-          value += "B";
-          brokenset.push_back(value);
+          if (j == 0){
+            value += "B";
           } else {
           value += std::to_string(j);
-          moveset.push_back(value);
           }
-
-        
+          set2[j].push_back(value);
         }
 
       }
+        
+    }
 
+  }
+  
+  for (int i = 1; i < 6; ++i) {
+    size = info[i].size();
+    
+    for (int j = 0; j < size; ++j) {
+      if (info[i][j]=='.') {
+        ++total;
+      }
+    }
+
+    lineCount[i-1] = total;
+    total = 0;
+  }
+
+
+set = set2;
+}
+
+int Bot::findFocus(){
+  int focus = 0;
+  int mindex = 6;
+
+  for(int i = 0; i < 5; ++i) {
+
+    if (lineCount[i] != 0) {
+        if(lineCount[i] < mindex) {
+          mindex = lineCount[i];
+          focus = i+1;
+        } 
+
+    }
+  }
+  return focus;
+}
+
+std::string Bot::defaultMove() {
+  int size = set[0].size();
+  int index = 0;
+  int min = 16;
+  int factory = 0;
+  char tile = '.';
+  std::string input;
+
+  for (int i = 0; i < size; ++i) {
+    input = set[0][i];
+    factory = (int)input[0]-'0';
+    tile = char(input[2]);
+    int total = 0;
+    int facSize = info[factory+11].size();
+
+    for (int j = 0; j < facSize; ++j) {
+      if(info[factory+11][j]== tile){
+        ++total; 
+      }
+    }
+
+    if (total != 0 && total < min) {
+      min = total;
+      index = i;
     }
 
   }
 
+  return set[0][index];
+}
+
+int Bot::findPerfect(int focus) {
+  int size = info[focus].size();;
+  int index = 99;
+  char tile = ' ';
+  int factory = 0;
+  
+  int empty = 0;
+  int min = 5;
+
+    for (int i = 0; i< size; ++i) {
+      if(info[focus][i] == '.') {
+        ++empty;
+      }
+    }
 
 
+    size = set[focus].size();
+
+    for (int i = 0; i < size; ++i){
+ 
+      int total = 0;
+      int full = 0;
+      std::string input= set[focus][i];
+
+      factory = (int)input[0]-'0';
+      tile = char(input[2]);
+      int factorySize = info[factory+11].size();
+ std::cout<<set[focus][i] <<factorySize<<std::endl;
+      for (int j = 0; j < factorySize; ++j) {
+        if(info[factory+11][j]== tile){
+          
+         
+        ++full; 
+        }
+      }
+
+      total = (full-empty);
+
+      if(!minFill) {
+        if (total == 0) {
+          index = i;
+         // std::cout<<"check1 "<<input<<std::endl;
+        } 
+      } else {
+        if (total < min){
+          index = i;
+          //std::cout<<"check2 "<<input<<std::endl;
+        }
+
+      }
+      //std::cout<<total<<" <total, "<< empty<< " <empty, "<<full<< " <full"<<std::endl;
+      //std::cout<<index<<std::endl;
 
 }
 
-std::string Bot::defaultMove() {
-  int size = brokenset.size();
-  
 
-
-
-
-return "hello";
+return index;
 }
 
 std::string Bot::calculateMove() {
+  fillMoves();
+  int focus = findFocus();
+ std::cout<<minFill<<std::endl;
+
+
   std::string move = defaultMove();
+
+
+  while (focus != 0) { 
+
+    int index = findPerfect(focus);
+    std::cout<<index<<" <index"<<std::endl;
+    if (index == 99) {
+      lineCount[focus-1] = 0;
+      focus = findFocus();
+
+    } else {
+ 
+      move = set[focus][index];
+      focus = 0;
+    }
+
+
+    
+  } 
+
+  if (minFill == false) {
+    minFill = true;
+    calculateMove();
+  }
 
  return move;
 }
