@@ -2,7 +2,7 @@
 
 Bot::Bot(GameBoard* gBoard, PlayerBoard* pBoard){
   char e = '.';
-  clearTiles();
+  clearTiles(false);
 
   std::vector<std::vector<char>> infoTemp{
 
@@ -64,6 +64,7 @@ Bot::~Bot(){
 
 
 std::string Bot::botScan() {
+  clearTiles(true);
   std::string botInput;
   std::string botInput2;
   fillMoves();
@@ -75,20 +76,25 @@ std::string Bot::botScan() {
 }
 
 void Bot::print() {
-int size = 0;
-std::cout<<std::endl;
-  for (int i = 0; i< 17; ++i){
-    size = info[i].size();
-    for (int j = 0; j < size; ++j){
-      std::cout<<info[i][j];
+  int size = 0;
+  std::cout<<std::endl;
+    for (int i = 0; i< 17; ++i){
+      size = info[i].size();
+      for (int j = 0; j < size; ++j){
+        std::cout<<info[i][j];
+      }
+      std::cout<<std::endl;
     }
     std::cout<<std::endl;
-  }
-  std::cout<<std::endl;
 
     size = moveset.size();
     for (int j = 0; j < size; ++j){
-      std::cout<<moveset[j]<<std::endl;;
+      std::cout<<moveset[j]<<std::endl;
+    }
+    std::cout<<size<<std::endl;
+    size = brokenset.size();
+    for (int j = 0; j < size; ++j){
+      std::cout<<brokenset[j]<<std::endl;
     }
     std::cout<<size<<std::endl;
 
@@ -147,10 +153,15 @@ bool Bot::canInsert(int row, char tile) {
 return check;
 }
 
-void Bot::clearTiles() {
-  for (int i = 0; i <5; ++i){
-    tiles[i] = '.';
-  } 
+void Bot::clearTiles(bool vect) {
+  if (vect) {
+    moveset.clear();
+  }
+  else {
+    for (int i = 0; i <5; ++i){
+      tiles[i] = '.';
+    } 
+  }
 }
 
 void Bot::fillTiles(char tile) {
@@ -184,7 +195,7 @@ void Bot::fillMoves() {
   for(int i = 11; i<17; ++i) {
     size = info[i].size();
     facRow = i-11;
-    clearTiles();
+    clearTiles(false);
     for(int j = 0; j < size; ++j) {
       
       if (info[i][j]!= '.'){
@@ -204,11 +215,13 @@ void Bot::fillMoves() {
           value += " "; 
           if (j == 0) {
           value += "B";
+          brokenset.push_back(value);
           } else {
           value += std::to_string(j);
+          moveset.push_back(value);
           }
 
-        moveset.push_back(value);
+        
         }
 
       }
@@ -222,6 +235,18 @@ void Bot::fillMoves() {
 
 }
 
-  std::string calculateMove() {
-    
-  }
+std::string Bot::defaultMove() {
+  int size = brokenset.size();
+  
+
+
+
+
+return "hello";
+}
+
+std::string Bot::calculateMove() {
+  std::string move = defaultMove();
+
+ return move;
+}

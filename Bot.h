@@ -19,19 +19,21 @@ class Bot {
     void print();
 
     //methods to help calculate best move
+
     char getRow(int row);
     int countRow(int row);
     bool checkRow(int row, char tile);
     bool canInsert(int row, char tile);
     void fillMoves();
-    void clearTiles();
+    void clearTiles(bool vect);
     void fillTiles(char tile);
-    
+    std::string defaultMove();
     std::string calculateMove();
 
   private:
     std::vector<std::vector<char>> info;
     std::vector<std::string> moveset;
+    std::vector<std::string> brokenset;
     char tiles[5];
     
 };
