@@ -18,13 +18,21 @@ class Bot {
     std::string botScan();
     void print();
 
+    //methods to help calculate best move
     char getRow(int row);
     int countRow(int row);
-    bool checkMosaicRow(int row, char tile);
+    bool checkRow(int row, char tile);
     bool canInsert(int row, char tile);
+    void fillMoves();
+    void clearTiles();
+    void fillTiles(char tile);
+    
+    std::string calculateMove();
 
   private:
     std::vector<std::vector<char>> info;
+    std::vector<std::string> moveset;
+    char tiles[5];
     
 };
 
