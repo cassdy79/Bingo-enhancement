@@ -88,8 +88,8 @@ void GameEngine::playGame(){
                         bot1 = new Bot(gameBoard, player2->getPlayerBoard());
 
                         std::cout << "TURN FOR " << player2->getName() << std::endl;
-                        gameBoard->printFactory();
-                        player2->printPlayerBoard();
+                        //gameBoard->printFactory();
+                        //player2->printPlayerBoard();
                         std::string botInput = "N/A";
 
                         do{
@@ -99,10 +99,11 @@ void GameEngine::playGame(){
                         std::cout << ">Bot performs move : ";
                         botInput = bot1->botScan();
                         
-                        std::cout << botInput;
+                        std::cout << botInput<<std::endl<<std::endl;
                         }
                         while(processInput(botInput, gameBoard, player2)==false);
-
+                        //std::cout<<"State of ";
+                        player2->printPlayerBoard();
                         //bot1->print();
                     } else {
 

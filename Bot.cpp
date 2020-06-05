@@ -66,14 +66,13 @@ Bot::~Bot(){
 std::string Bot::botScan() {
   clearTiles(true);
   minFill = false;
-  std::string botInput;
-  std::string botInput2;
+  //std::string botInput;
   
-  botInput2 = calculateMove();
-  std::cout<<botInput2<<std::endl;
-  std::getline(std::cin, botInput); 
+   calculateMove();
+  //std::cout<<move<<std::endl;
+  //std::getline(std::cin, botInput); 
   
-  return botInput;
+  return move;
 }
 
 void Bot::print() {
@@ -322,7 +321,7 @@ int Bot::findPerfect(int focus) {
       factory = (int)input[0]-'0';
       tile = char(input[2]);
       int factorySize = info[factory+11].size();
- std::cout<<set[focus][i] <<factorySize<<std::endl;
+// std::cout<<set[focus][i] <<factorySize<<std::endl;
       for (int j = 0; j < factorySize; ++j) {
         if(info[factory+11][j]== tile){
           
@@ -332,7 +331,7 @@ int Bot::findPerfect(int focus) {
       }
 
       total = (full-empty);
-
+      
       if(!minFill) {
         if (total == 0) {
           index = i;
@@ -346,7 +345,6 @@ int Bot::findPerfect(int focus) {
 
       }
       //std::cout<<total<<" <total, "<< empty<< " <empty, "<<full<< " <full"<<std::endl;
-      //std::cout<<index<<std::endl;
 
 }
 
@@ -357,16 +355,15 @@ return index;
 std::string Bot::calculateMove() {
   fillMoves();
   int focus = findFocus();
- std::cout<<minFill<<std::endl;
+ //std::cout<<minFill<<std::endl;
 
 
-  std::string move = defaultMove();
+  move = defaultMove();
 
 
   while (focus != 0) { 
 
     int index = findPerfect(focus);
-    std::cout<<index<<" <index"<<std::endl;
     if (index == 99) {
       lineCount[focus-1] = 0;
       focus = findFocus();
@@ -374,6 +371,7 @@ std::string Bot::calculateMove() {
     } else {
  
       move = set[focus][index];
+      minFill = true;
       focus = 0;
     }
 

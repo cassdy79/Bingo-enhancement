@@ -41,6 +41,7 @@ class Bot {
     char tiles[5];
     int lineCount[5];
     bool minFill;
+    std::string move;
     
 };
 
