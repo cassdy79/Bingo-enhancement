@@ -24,7 +24,7 @@ int main(int argc, char** argv){
     int randomSeed = 0;
     
     std::cout << 
-    "Welcome to Azul! \n" <<
+    "Welcome to Azul! "<< COPY<<" \n" <<
     "-------------------\n \n"; 
 
     for(int i = 0; i < argc; i++){
@@ -66,8 +66,11 @@ int main(int argc, char** argv){
             std::cout<<"Thanks for playing"<<std::endl;
 
         } else if (userInput == "help"){
-            std::cout<<"helphelphelp";
-
+            std::cout<<"\nWelcome to Azul, please input the following commands to get started."<<std::endl;
+            std::cout<<"1: Start a new game. You get to choose if you want to play with bots or with another person."<<std::endl;
+            std::cout<<"2: Load a previously saved game by typing the save file name."<<std::endl;
+            std::cout<<"3: Displays a list of credits."<<std::endl;
+            std::cout<<"4: Ends the program."<<std::endl;
         } else {
             std::cout<<"Invalid Input"<<std::endl;
             userInput = "default";
@@ -99,7 +102,8 @@ void azulGame(GameEngine* engine){
         std::cin>>response;
         if(response == "Y" || response == "y"){
             bots = true;
-            playerName2 = "Jarvis the (Bot)ler";
+            playerName2 = ICON;
+            playerName2 += " Jarvis the (Bot)ler";
             std::cin.ignore(100000, '\n');
             std::cout << "Enter a name for player 1" << std::endl << ">";
             std::getline(std::cin, playerName1);

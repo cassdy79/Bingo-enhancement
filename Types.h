@@ -34,5 +34,6 @@ typedef char* Empty;
 #define GREEN   "\033[32m"
 #define MAGENTA "\033[35m"
 #define END     "\033[0m"
-
+#define COPY    "\u00A9"
+#define ICON    "\u2602"
 #endif //TYPES_H

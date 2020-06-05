@@ -16,28 +16,42 @@ class Bot {
 
     //returns botMove
     std::string botScan();
-    void print();
+
 
     //methods to help calculate best move
-
-    char getRow(int row);
+    //counts tiles in specified row
     int countRow(int row);
+
+    //checks if tile is already inserted into the mosaic row
     bool checkRow(int row, char tile);
+
+    //checks if tile can be inserted to row
     bool canInsert(int row, char tile);
+
+    //fills all possible moves into vector ser
     void fillMoves();
+
+    //clears tiles in vector or tile array if false
     void clearTiles(bool vect);
+
+    //fills tiles array with valid tiles for moves
     void fillTiles(char tile);
-   // int countTile(int index);
+
+    //sets default move which adds least number of tiles to broken line
     std::string defaultMove();
+
+    //calculates best move for Bot and replaces default move if found
     std::string calculateMove();
+
+    //finds best row to insert a tile which helps find best move
     int findFocus();
+
+    //finds best move to fill a tile perfectly, if not, finds next best move if available
     int findPerfect(int focus);
 
   private:
     std::vector<std::vector<char>> info;
     std::vector<std::vector<std::string>> set;
-    //std::vector<std::string> moveset;
-    //std::vector<std::string> brokenset;
     char tiles[5];
     int lineCount[5];
     bool minFill;

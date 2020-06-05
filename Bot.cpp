@@ -66,50 +66,19 @@ Bot::~Bot(){
 std::string Bot::botScan() {
   clearTiles(true);
   minFill = false;
-  //std::string botInput;
-  
-   calculateMove();
-  //std::cout<<move<<std::endl;
-  //std::getline(std::cin, botInput); 
-  
+  calculateMove();
   return move;
 }
 
-void Bot::print() {
-  int size = 0;
-  std::cout<<std::endl;
-    for (int i = 0; i< 17; ++i){
-      size = info[i].size();
-      for (int j = 0; j < size; ++j){
-        std::cout<<info[i][j];
-      }
-      std::cout<<std::endl;
-    }
-    std::cout<<std::endl;
-
-    for(int i = 0; i < 6; ++i){
-      size = set[i].size();
-      std::cout<< "Moves for row"<<i<<std::endl;
-      for (int j = 0; j < size; ++j){
-        std::cout<<set[i][j]<<std::endl;
-      }
-      std::cout<<size<<std::endl;
-    }
-
-}
-
-char Bot::getRow(int row){
-  return info[row][0];
-}
 
 int Bot::countRow(int row) {
   int count = 0;
   
-    for (int i = 0; i<row; ++i) {
-      if (info[row][i] != '.' ) {
-          ++count;
-      }
+  for (int i = 0; i<row; ++i) {
+    if (info[row][i] != '.' ) {
+        ++count;
     }
+  }
 
   return count;
 }
@@ -321,7 +290,6 @@ int Bot::findPerfect(int focus) {
       factory = (int)input[0]-'0';
       tile = char(input[2]);
       int factorySize = info[factory+11].size();
-// std::cout<<set[focus][i] <<factorySize<<std::endl;
       for (int j = 0; j < factorySize; ++j) {
         if(info[factory+11][j]== tile){
           
@@ -335,19 +303,17 @@ int Bot::findPerfect(int focus) {
       if(!minFill) {
         if (total == 0) {
           index = i;
-         // std::cout<<"check1 "<<input<<std::endl;
+
         } 
       } else {
         if (total < min){
           index = i;
-          //std::cout<<"check2 "<<input<<std::endl;
+
         }
 
       }
-      //std::cout<<total<<" <total, "<< empty<< " <empty, "<<full<< " <full"<<std::endl;
 
 }
-
 
 return index;
 }
@@ -355,11 +321,7 @@ return index;
 std::string Bot::calculateMove() {
   fillMoves();
   int focus = findFocus();
- //std::cout<<minFill<<std::endl;
-
-
   move = defaultMove();
-
 
   while (focus != 0) { 
 
@@ -375,8 +337,6 @@ std::string Bot::calculateMove() {
       focus = 0;
     }
 
-
-    
   } 
 
   if (minFill == false) {

@@ -399,7 +399,6 @@ void PlayerBoard::endScoring(){
         count = 0;
     }
     
-    std::cout<<"+"<<horzCount<<" for "<< (horzCount/2) << " horizontally completed lines."<<std::endl;
 
     //vertical
         for(int i = 0; i<5; ++i){
@@ -413,7 +412,7 @@ void PlayerBoard::endScoring(){
     }
         count = 0;
     }
-    std::cout<<"+"<<vertCount<<" for "<< (vertCount/7) << "vertically completed lines."<<std::endl;
+
 
     //colours
     colCount += colorScoring('R');
@@ -422,7 +421,7 @@ void PlayerBoard::endScoring(){
     colCount += colorScoring('L');
     colCount += colorScoring('U');
 
-    std::cout<<"+"<<colCount<<" for "<< (colCount/10) << "fully completed tiles."<<std::endl;
+
 
 }
 

@@ -179,7 +179,13 @@ void GameEngine::playGame(){
 bool GameEngine::processInput(std::string input, GameBoard* gameBoard, Player* player){
     bool check=false;
    if (input == "help"){
-            std::cout<<"helphelp"<<std::endl;
+            std::cout<<"Please enter input in the format of \"X Y Z\", Where:"<<std::endl;
+            std::cout<<"X = Number of the Factory from 0-5"<<std::endl;
+            std::cout<<"Y = Colour of tile out of : B, Y, U, L, R"<<std::endl;
+            std::cout<<"Z = Number of the rows in player line from 1-6, or B for Broken line"<<std::endl;
+            std::cout<<"For Example\n>1 R 3\n"<<std::endl;
+            std::cout<<"If you wish to save your progress use the command\n>save filename"<<std::endl;
+            std::cout<<"Where filename is the name of your savefile"<<std::endl;
             return false;
         }
 
