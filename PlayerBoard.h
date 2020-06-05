@@ -66,7 +66,7 @@ class PlayerBoard{
 
     //calculates end of game scoring
     void endScoring();
-    void colorScoring(char tile);
+    int colorScoring(char tile);
 
     //move to bot
      char* getBot(int num);

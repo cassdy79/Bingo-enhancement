@@ -148,11 +148,15 @@ bool PlayerBoard::insertIntoLine(int mosaicLineNumber, LinkedList* boxLid, char 
     if(brokenLine){
                     for (int i = 0; i < 7 && !inserted; i++) {
                 //looks for earliest index in broken tiles that is empty and fills factory tile.
-                if (broken[i] == ' '){
+                if (broken[i] == ' ' ){
+                   // if(broken[i] == 'F' && factoryTiles == 'F'){
+                     //   inserted = true;
+                   // } else {
                     broken[i] = factoryTiles;
                     
                     //bool check to break out of loop once inserted
-                    inserted = true;
+                        inserted = true;
+                //    }
 
                 }
             }
@@ -378,6 +382,9 @@ if(!empty(factoryWall[row][col])){
 
 void PlayerBoard::endScoring(){
     int count = 0;
+    int horzCount = 0;
+    int vertCount = 0;
+    int colCount = 0;
     //horizontal
     for(int i = 0; i<5; ++i){
         for(int j = 0; j<5; ++j){
@@ -386,9 +393,13 @@ void PlayerBoard::endScoring(){
         }
     if (count == 5){
         score += 2;
+        horzCount +=2;
+        
     }
         count = 0;
     }
+    
+    std::cout<<"+"<<horzCount<<" for "<< (horzCount/2) << " horizontally completed lines."<<std::endl;
 
     //vertical
         for(int i = 0; i<5; ++i){
@@ -398,22 +409,26 @@ void PlayerBoard::endScoring(){
         }
     if (count == 5){
         score += 7;
+        vertCount += 7;
     }
         count = 0;
     }
+    std::cout<<"+"<<vertCount<<" for "<< (vertCount/7) << "vertically completed lines."<<std::endl;
 
     //colours
-    colorScoring('R');
-    colorScoring('Y');
-    colorScoring('B');
-    colorScoring('L');
-    colorScoring('U');
+    colCount += colorScoring('R');
+    colCount += colorScoring('Y');
+    colCount += colorScoring('B');
+    colCount += colorScoring('L');
+    colCount += colorScoring('U');
 
+    std::cout<<"+"<<colCount<<" for "<< (colCount/10) << "fully completed tiles."<<std::endl;
 
 }
 
-void PlayerBoard::colorScoring(char tile) {
+int PlayerBoard::colorScoring(char tile) {
     int counter = 0;
+    int retValue = 0;
 
         for(int i = 0; i<5; ++i){
             for(int j = 0; j<5; ++j){
@@ -423,8 +438,9 @@ void PlayerBoard::colorScoring(char tile) {
         }
         if(counter == 5){
             score += 10;
+            retValue = 10;
         }
-
+    return retValue;
 }
 
 
